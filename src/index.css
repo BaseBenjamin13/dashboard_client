@@ -5,9 +5,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--myDarkBlue);
+  color: var(--myWhite);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+    --myBlue: rgba(1, 41, 121);
+    --myDarkBlue: rgba(0, 16, 51);
+    --myGreen: rgba(56, 161, 105);
+    --myRed: rgba(171, 0, 0);
+    --myWhite: rgba(235, 235, 235);
+    --myPurple: rgba(77, 25, 77);
+    --myDarkPurple: rgba(49, 34, 68);
 }
