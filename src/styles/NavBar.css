@@ -1,4 +1,5 @@
 .navbar {
+    text-align: center;
     height: 100%;
     width: 15vw;
     position: fixed;
@@ -7,4 +8,8 @@
     left: 0;
     background-color: var(--myBlue);
     padding-top: 60px;
+}
+.navbar-link {
+    text-decoration:solid var(--myGreen) underline;
+    color: var(--myWhite);
 }
