@@ -1,5 +1,10 @@
-.app {
+.App {
   text-align: center;
 }
 
 
+.page-404:nth-child(1n) {
+    display: block;
+    align-self: center;
+    width: 100%;
+}

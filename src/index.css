@@ -26,13 +26,13 @@ code {
     --myDarkPurple: rgba(49, 34, 68);
 }
 
-html, body, #root, .app, .content {
+html, body, #root, .App, .content {
     height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-.app {
+.App {
     display: flex;
     position: relative;
 }
