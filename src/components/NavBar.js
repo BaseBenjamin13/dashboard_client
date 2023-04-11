@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -13,8 +13,10 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
-import { tokens } from "../theme";
+import { tokens, ColorModeContext } from "../theme";
 import NavBarItem from "./NavBarItem";
 
 
@@ -25,6 +27,7 @@ const NavBar = () => {
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
+    const colorMode = useContext(ColorModeContext);
 
     return (
         <Box
@@ -98,6 +101,15 @@ const NavBar = () => {
                     )}
 
                     <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                        <MenuItem>
+                            <IconButton onClick={colorMode.toggleColorMode}>
+                                {theme.palette.mode === "dark" ? (
+                                    <DarkModeOutlinedIcon />
+                                    ) : (
+                                        <LightModeOutlinedIcon />
+                                        )}
+                            </IconButton>
+                        </MenuItem>
 
                         <NavBarItem
                             title={user ? "Profile" : "Login"}
