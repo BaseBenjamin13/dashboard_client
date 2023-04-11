@@ -6,6 +6,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import HomePage from './pages/HomePage';
 import Page404 from './pages/404';
+import NavBar from './components/NavBar';
+
 
 function App() {
 
@@ -17,6 +19,7 @@ function App() {
                 <CssBaseline />
 
                 <div className="App">
+                    <NavBar />
                     <main className="content">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
