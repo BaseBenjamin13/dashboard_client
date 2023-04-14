@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Login.css';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -13,9 +13,14 @@ function Login() {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [registerForm, setRegisterForm] = useState({companyName: '', email: '', password: ''})
 
+    const handleRegisterChange = (e) => {
+        setRegisterForm({ ...registerForm, [e.target.id]: e.target.value})
+    }
     const handleRegister = (e) => {
         e.preventDefault();
+        console.log(registerForm);
         console.log("Register button was clicked")
     }
 
@@ -36,27 +41,30 @@ function Login() {
                             <TextField
                                 fullWidth
                                 margin="normal"
-                                id="outlined-basic"
+                                id="companyName"
                                 label="Company Name"
                                 variant="outlined"
                                 color="secondary"
+                                onChange={handleRegisterChange}
                                 />
                             <TextField
                                 fullWidth
                                 margin="normal"
-                                id="outlined-basic"
+                                id="email"
                                 label="Email"
                                 variant="outlined"
                                 color="secondary"
+                                onChange={handleRegisterChange}
                                 />
                             <TextField
                                 fullWidth
                                 margin="normal"
-                                id="outlined-basic"
+                                id="password"
                                 label="Password"
                                 variant="outlined"
                                 color="secondary"
-                            />
+                                onChange={handleRegisterChange}
+                                />
 
                             <Button variant="contained" type="submit" color="secondary">Contained</Button>
                         </form>
