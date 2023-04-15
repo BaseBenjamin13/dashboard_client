@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios  from 'axios';
 import '../styles/Login.css';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -18,10 +19,21 @@ function Login() {
     const handleRegisterChange = (e) => {
         setRegisterForm({ ...registerForm, [e.target.id]: e.target.value})
     }
+    console.log(process.env.REACT_APP_API_URL)
     const handleRegister = (e) => {
         e.preventDefault();
         console.log(registerForm);
-        console.log("Register button was clicked")
+        console.log("Register button was clicked");
+        axios.post(process.env.REACT_APP_API_URL + 'signup/', {
+            username: registerForm.companyName,
+            password: registerForm.password,
+            email: registerForm.email,
+            first_name: 'billy',
+            last_name: 'wiiiilll',
+        })
+        .then((res) => {
+            console.log(res)
+        })
     }
 
     const handleLogin = () => { }
