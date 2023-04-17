@@ -23,14 +23,19 @@ function Login() {
             password: '',
         }
     );
+    const [loginForm, setLoginForm] = useState(
+        {
+            companyName: '',
+            password: '',
+        }
+    );
 
     const handleFormChange = (formState, setFormState, e) => {
         setFormState({ ...formState, [e.target.id]: e.target.value })
     };
+
     const handleRegister = (e) => {
         e.preventDefault();
-        console.log(registerForm);
-        console.log("Register button was clicked");
         axios.post(process.env.REACT_APP_API_URL + 'signup/', {
             username: registerForm.companyName,
             password: registerForm.password,
@@ -38,14 +43,22 @@ function Login() {
             first_name: registerForm.firstName,
             last_name: registerForm.lastName,
         })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch(err => console.log(err))
+    };
+    
+    const handleLogin = (e) => {
+        e.preventDefault();
+        axios.post(process.env.REACT_APP_API_URL + 'api/token/', {
+            username: loginForm.companyName,
+            password: loginForm.password,
+        })
             .then((res) => {
                 console.log(res)
             })
             .catch(err => console.log(err))
-    };
-
-    const handleLogin = () => {
-
     }
 
     return (
@@ -111,7 +124,31 @@ function Login() {
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    
+                    <div className="form-container">
+                        <h1>Login</h1>
+                        <form onSubmit={handleLogin} className="form">
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                id="companyName"
+                                label="Company Name"
+                                variant="outlined"
+                                color="secondary"
+                                onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
+                            />
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                id="password"
+                                label="Password"
+                                variant="outlined"
+                                color="secondary"
+                                onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
+                            />
+
+                            <Button variant="contained" type="submit" color="secondary">Login</Button>
+                        </form>
+                    </div>
                 </TabPanel>
 
             </Tabs>
