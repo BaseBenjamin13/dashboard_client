@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
+import { UserProvider } from './contexts/UserContext';
+
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Page404 from './pages/404';
@@ -15,26 +17,28 @@ function App() {
     const [theme, colorMode] = useMode();
 
     return (
-        <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
+        <UserProvider>
+            <ColorModeContext.Provider value={colorMode}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
 
-                <div className="App">
-                    <NavBar />
-                    <main className="content">
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
+                    <div className="App">
+                        <NavBar />
+                        <main className="content">
+                            <Routes>
+                                <Route path="/" element={<HomePage />} />
 
-                        <Route path="/login" element={<Login />} />
+                                <Route path="/login" element={<Login />} />
 
 
-                        <Route path="*" element={<Page404 />} />
-                    </Routes>
-                    </main>
-                </div>
+                                <Route path="*" element={<Page404 />} />
+                            </Routes>
+                        </main>
+                    </div>
 
-            </ThemeProvider>
-        </ColorModeContext.Provider>
+                </ThemeProvider>
+            </ColorModeContext.Provider>
+        </UserProvider>
     );
 }
 

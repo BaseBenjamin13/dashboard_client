@@ -19,7 +19,6 @@ function Login() {
     const handleRegisterChange = (e) => {
         setRegisterForm({ ...registerForm, [e.target.id]: e.target.value})
     }
-    console.log(process.env.REACT_APP_API_URL)
     const handleRegister = (e) => {
         e.preventDefault();
         console.log(registerForm);
