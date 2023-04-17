@@ -24,8 +24,8 @@ function Login() {
         }
     );
 
-    const handleRegisterChange = (e) => {
-        setRegisterForm({ ...registerForm, [e.target.id]: e.target.value })
+    const handleFormChange = (formState, setFormState, e) => {
+        setFormState({ ...formState, [e.target.id]: e.target.value })
     };
     const handleRegister = (e) => {
         e.preventDefault();
@@ -44,7 +44,9 @@ function Login() {
             .catch(err => console.log(err))
     };
 
-    const handleLogin = () => { }
+    const handleLogin = () => {
+
+    }
 
     return (
         <div>
@@ -65,7 +67,7 @@ function Login() {
                                 label="Company Name"
                                 variant="outlined"
                                 color="secondary"
-                                onChange={handleRegisterChange}
+                                onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
                             <TextField
                                 fullWidth
@@ -74,7 +76,7 @@ function Login() {
                                 label="First Name"
                                 variant="outlined"
                                 color="secondary"
-                                onChange={handleRegisterChange}
+                                onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
                             <TextField
                                 fullWidth
@@ -83,7 +85,7 @@ function Login() {
                                 label="Last Name"
                                 variant="outlined"
                                 color="secondary"
-                                onChange={handleRegisterChange}
+                                onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
                             <TextField
                                 fullWidth
@@ -92,7 +94,7 @@ function Login() {
                                 label="Email"
                                 variant="outlined"
                                 color="secondary"
-                                onChange={handleRegisterChange}
+                                onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
                             <TextField
                                 fullWidth
@@ -101,20 +103,15 @@ function Login() {
                                 label="Password"
                                 variant="outlined"
                                 color="secondary"
-                                onChange={handleRegisterChange}
+                                onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
 
-                            <Button variant="contained" type="submit" color="secondary">Contained</Button>
+                            <Button variant="contained" type="submit" color="secondary">Register</Button>
                         </form>
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className="form">
-                        <h1>Login</h1>
-                        <form onSubmit={handleLogin}>
-
-                        </form>
-                    </div>
+                    
                 </TabPanel>
 
             </Tabs>
