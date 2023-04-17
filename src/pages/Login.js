@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios  from 'axios';
+import axios from 'axios';
 import '../styles/Login.css';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -14,11 +14,19 @@ function Login() {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [registerForm, setRegisterForm] = useState({companyName: '', email: '', password: ''})
+    const [registerForm, setRegisterForm] = useState(
+        {
+            companyName: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+        }
+    );
 
     const handleRegisterChange = (e) => {
-        setRegisterForm({ ...registerForm, [e.target.id]: e.target.value})
-    }
+        setRegisterForm({ ...registerForm, [e.target.id]: e.target.value })
+    };
     const handleRegister = (e) => {
         e.preventDefault();
         console.log(registerForm);
@@ -27,13 +35,13 @@ function Login() {
             username: registerForm.companyName,
             password: registerForm.password,
             email: registerForm.email,
-            first_name: 'billy',
-            last_name: 'wiiiilll',
+            first_name: registerForm.firstName,
+            last_name: registerForm.lastName,
         })
-        .then((res) => {
-            console.log(res)
-        })
-    }
+            .then((res) => {
+                console.log(res)
+            })
+    };
 
     const handleLogin = () => { }
 
@@ -57,7 +65,25 @@ function Login() {
                                 variant="outlined"
                                 color="secondary"
                                 onChange={handleRegisterChange}
-                                />
+                            />
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                id="firstName"
+                                label="First Name"
+                                variant="outlined"
+                                color="secondary"
+                                onChange={handleRegisterChange}
+                            />
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                id="lastName"
+                                label="Last Name"
+                                variant="outlined"
+                                color="secondary"
+                                onChange={handleRegisterChange}
+                            />
                             <TextField
                                 fullWidth
                                 margin="normal"
@@ -66,7 +92,7 @@ function Login() {
                                 variant="outlined"
                                 color="secondary"
                                 onChange={handleRegisterChange}
-                                />
+                            />
                             <TextField
                                 fullWidth
                                 margin="normal"
@@ -75,7 +101,7 @@ function Login() {
                                 variant="outlined"
                                 color="secondary"
                                 onChange={handleRegisterChange}
-                                />
+                            />
 
                             <Button variant="contained" type="submit" color="secondary">Contained</Button>
                         </form>
