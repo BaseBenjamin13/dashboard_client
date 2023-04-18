@@ -63,15 +63,24 @@ function Login() {
     };
 
     const handleLogin = (e) => {
+        setErrorMsg({ username: null, password: null })
         e.preventDefault();
         axios.post(process.env.REACT_APP_API_URL + 'api/token/', {
             username: loginForm.companyName,
             password: loginForm.password,
         })
             .then((res) => {
-                console.log(res)
+                console.log(res);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err);
+                if (err.response.data.username || err.response.data.password) {
+                    setErrorMsg({
+                        username: err.response.data.username ? err.response.data.username[0] : null,
+                        password: err.response.data.password ? err.response.data.password[0] : null
+                    });
+                }
+            })
     }
 
     return (
@@ -169,6 +178,11 @@ function Login() {
                                 label="Company Name"
                                 variant="outlined"
                                 color="secondary"
+                                error={errorMsg.username ? true : false}
+                                helperText={errorMsg.username ?
+                                    <span className="error-msg">{errorMsg.username}</span>
+                                    : null
+                                }
                                 onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
                             />
                             <TextField
@@ -180,6 +194,11 @@ function Login() {
                                 label="Password"
                                 variant="outlined"
                                 color="secondary"
+                                error={errorMsg.password ? true : false}
+                                helperText={errorMsg.password ?
+                                    <span className="error-msg">{errorMsg.password}</span>
+                                    : null
+                                }
                                 onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
                             />
 
