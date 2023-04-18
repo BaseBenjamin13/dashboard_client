@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import '../styles/Login.css';
 
@@ -8,12 +8,16 @@ import 'react-tabs/style/react-tabs.css';
 import { TextField, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../theme";
-
+import { UserContext } from '../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-
+    
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const navigate = useNavigate()
+    const { user, setUser } = useContext(UserContext)
+    const [errorMsg, setErrorMsg] = useState({username: null, password: null})
     const [registerForm, setRegisterForm] = useState(
         {
             companyName: '',
@@ -36,6 +40,7 @@ function Login() {
 
     const handleRegister = (e) => {
         e.preventDefault();
+        setErrorMsg({username: null, password: null})
         axios.post(process.env.REACT_APP_API_URL + 'signup/', {
             username: registerForm.companyName,
             password: registerForm.password,
@@ -44,9 +49,17 @@ function Login() {
             last_name: registerForm.lastName,
         })
         .then((res) => {
-            console.log(res)
+            console.log(res);
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err);
+            if(err.response.data.username || err.response.data.password){
+                setErrorMsg({
+                    username: err.response.data.username ? err.response.data.username[0]: null,
+                    password: err.response.data.password ? err.response.data.password[0]: null
+                });
+            }
+        })
     };
     
     const handleLogin = (e) => {
@@ -80,6 +93,8 @@ function Login() {
                                 label="Company Name"
                                 variant="outlined"
                                 color="secondary"
+                                error={errorMsg.username ? true : false}
+                                helperText={errorMsg.username ? <h2>{errorMsg.username}</h2> : null}
                                 onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
                             <TextField
@@ -116,6 +131,8 @@ function Login() {
                                 label="Password"
                                 variant="outlined"
                                 color="secondary"
+                                error={errorMsg.password ? true : false}
+                                helperText={errorMsg.password ? <h2>{errorMsg.password}</h2> : null}
                                 onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
 

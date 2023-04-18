@@ -1,9 +1,12 @@
 
 .form {
     margin: 0 auto;
-    width: 20vw;
+    width: 25vw;
     display: block;
     justify-content: center;
     align-items: center;
     /* background-color: black; */
+}
+.helperText {
+    font-size: 5rem;
 }

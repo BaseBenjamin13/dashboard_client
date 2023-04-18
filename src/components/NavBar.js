@@ -128,7 +128,7 @@ const NavBar = () => {
                         />
 
                         <NavBarItem
-                            title="Contacts Information"
+                            title="Clients Information"
                             to="/contacts"
                             icon={<ContactsOutlinedIcon />}
                             selected={selected}
@@ -136,7 +136,7 @@ const NavBar = () => {
                         />
 
                         <NavBarItem
-                            title="Invoices Balances"
+                            title="Invoices"
                             to="/invoices"
                             icon={<ReceiptOutlinedIcon />}
                             selected={selected}
