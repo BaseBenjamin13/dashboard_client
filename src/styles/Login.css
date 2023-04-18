@@ -1,12 +1,14 @@
 
 .form {
     margin: 0 auto;
-    width: 25vw;
+    width: 30vw;
     display: block;
     justify-content: center;
     align-items: center;
-    /* background-color: black; */
+    border: 1px solid #4cceac;
+    border-radius: 5%;
+    padding: 15px;
 }
-.helperText {
-    font-size: 5rem;
+.error-msg {
+    font-size: 20px;
 }
