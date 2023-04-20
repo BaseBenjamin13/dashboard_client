@@ -5,7 +5,8 @@ import '../styles/Login.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import { TextField, useTheme, Button } from "@mui/material";
+import { TextField, useTheme, Button, IconButton, InputAdornment } from "@mui/material";
+import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { tokens } from "../theme";
 import { UserContext } from '../contexts/UserContext';
@@ -18,6 +19,8 @@ function Login() {
     const navigate = useNavigate()
     const { user, setUser } = useContext(UserContext)
     const [errorMsg, setErrorMsg] = useState({ username: null, password: null })
+    const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+    const [showLoginPassword, setShowLoginPassword] = useState(false);
     const [registerForm, setRegisterForm] = useState(
         {
             companyName: '',
@@ -37,6 +40,11 @@ function Login() {
     const handleFormChange = (formState, setFormState, e) => {
         setFormState({ ...formState, [e.target.id]: e.target.value })
     };
+
+    const handleShowPassword = (showPassword, setShowPassword, e) => {
+        e.preventDefault();
+        setShowPassword(!showPassword);
+    }
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -145,13 +153,12 @@ function Login() {
                                 onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
                             />
                             <TextField
-                                InputProps={{ style: { fontSize: 20 } }}
                                 InputLabelProps={{ style: { fontSize: 20 } }}
                                 fullWidth
                                 margin="normal"
                                 id="password"
-                                label="Password"
                                 variant="outlined"
+                                label="Password"
                                 color="secondary"
                                 error={errorMsg.password ? true : false}
                                 helperText={errorMsg.password ?
@@ -159,6 +166,22 @@ function Login() {
                                     : null
                                 }
                                 onChange={(e) => handleFormChange(registerForm, setRegisterForm, e)}
+                                type={showRegisterPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    style: { fontSize: 20 },
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={
+                                                    (e) => handleShowPassword(showRegisterPassword, setShowRegisterPassword , e)
+                                                }
+                                            >
+                                                {showRegisterPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
                             />
 
                             <Button size="large" style={{ fontSize: '20px' }} variant="contained" type="submit" color="secondary">Register</Button>
@@ -200,6 +223,22 @@ function Login() {
                                     : null
                                 }
                                 onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
+                                type={showLoginPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    style: { fontSize: 20 },
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={
+                                                    (e) => handleShowPassword(showLoginPassword, setShowLoginPassword , e)
+                                                }
+                                            >
+                                                {showLoginPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
                             />
 
                             <Button size="large" style={{ fontSize: '20px' }} variant="contained" type="submit" color="secondary">Login</Button>
