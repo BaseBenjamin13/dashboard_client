@@ -129,7 +129,7 @@ const NavBar = () => {
 
                         <NavBarItem
                             title="Clients Information"
-                            to="/contacts"
+                            to="/clients"
                             icon={<ContactsOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
