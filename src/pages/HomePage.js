@@ -5,8 +5,6 @@ import { UserContext } from '../contexts/UserContext';
 function HomePage() {
 
     const { user, setUser } = useContext(UserContext)
-
-    console.log(user);
     
   return (
     <div>
