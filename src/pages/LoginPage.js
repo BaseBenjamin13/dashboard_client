@@ -73,12 +73,22 @@ function Login() {
     const handleLogin = (e) => {
         setErrorMsg({ username: null, password: null })
         e.preventDefault();
-        axios.post(process.env.REACT_APP_API_URL + 'api/token/', {
+        axios.post(process.env.REACT_APP_API_URL + 'login/', {
             username: loginForm.companyName,
             password: loginForm.password,
         })
             .then((res) => {
                 console.log(res);
+                localStorage.setItem('token', res.data.access);
+                // ADD this once backend is updated
+                // localStorage.setItem('companyName', res.data.username);
+                localStorage.setItem('email', res.data.email);
+                localStorage.setItem('firstName', res.data.first_name);
+                localStorage.setItem('lastName', res.data.last_name);
+                localStorage.setItem('ID', res.data.user_id);
+            })
+            .then(() => {
+                navigate('/');
             })
             .catch(err => {
                 console.log(err);
