@@ -24,7 +24,11 @@ function ClientsPage() {
         <div>
             <h1>Clients</h1>
 
-            {clients && <ClientsTable clients={clients} />}
+            {clients ? 
+                <ClientsTable clients={clients} />
+                : <h1>You haven't added any clients yet.</h1>
+                //should link to Create Client.
+            }
 
         </div>
     )
