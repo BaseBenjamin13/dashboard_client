@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
+import ClientsSearch from '../components/clients/ClientsSearch';
 
 function ClientsPage() {
 
@@ -23,6 +24,8 @@ function ClientsPage() {
     return (
         <div>
             <h1>Clients</h1>
+
+            <ClientsSearch />
 
             {clients ? 
                 <ClientsTable clients={clients} />
