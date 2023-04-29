@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField, useTheme, Button, IconButton, InputAdornment} from "@mui/material";
+import { TextField, Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 function ClientsSearch() {

@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 import axios from 'axios';
+import { Button, IconButton, InputAdornment } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
@@ -10,6 +12,7 @@ function ClientsPage() {
 
     const { user, setUser } = useContext(UserContext);
     const [clients, setClients] = useState();
+    const [showClientForm, setShowClientForm] = useState(false);
 
     useEffect(() => {
         if (user.ID) {
@@ -25,9 +28,19 @@ function ClientsPage() {
         <div>
             <h1>Clients</h1>
 
+            <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
+                variant="contained" color="secondary"
+                onClick={() => setShowClientForm(!showClientForm)}
+            >
+                Add Client
+                <IconButton aria-label="plus icon">
+                    <AddIcon />
+                </IconButton>
+            </Button>
+
             <ClientsSearch />
 
-            {clients ? 
+            {clients ?
                 <ClientsTable clients={clients} />
                 : <h1>You haven't added any clients yet.</h1>
                 //should link to Create Client.
