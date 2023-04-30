@@ -1,18 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 import axios from 'axios';
-import { Button, IconButton, InputAdornment } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
 import ClientsSearch from '../components/clients/ClientsSearch';
+import AddClientForm from '../components/clients/AddClientForm';
 
 function ClientsPage() {
 
     const { user, setUser } = useContext(UserContext);
     const [clients, setClients] = useState();
-    const [showClientForm, setShowClientForm] = useState(false);
+    const [showClientForm, setShowClientForm] = useState(true);
 
     useEffect(() => {
         if (user.ID) {
@@ -37,6 +38,8 @@ function ClientsPage() {
                     <AddIcon />
                 </IconButton>
             </Button>
+
+            {showClientForm && <AddClientForm showClientForm={showClientForm} setShowClientForm={setShowClientForm} />}
 
             <ClientsSearch />
 
