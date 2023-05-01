@@ -12,6 +12,8 @@ import { tokens } from "../theme";
 import { UserContext } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
+import { handleFormChange } from '../helpers/forms';
+
 function Login() {
 
     const theme = useTheme();
@@ -37,9 +39,7 @@ function Login() {
         }
     );
 
-    const handleFormChange = (formState, setFormState, e) => {
-        setFormState({ ...formState, [e.target.id]: e.target.value })
-    };
+    
 
     const handleShowPassword = (showPassword, setShowPassword, e) => {
         e.preventDefault();
