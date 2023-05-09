@@ -12,3 +12,24 @@
 .error-msg {
     font-size: 20px;
 }
+
+.client-form {
+    /* width: 100%; */
+    /* display: flex; */
+    /* justify-content: center; */
+    background-color: #141b2d;
+    position: absolute;
+    z-index: 1;
+    /* left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;  */
+    top: 50%;
+    left: 57%;
+    transform: translate(-50%, -50%);
+}
+
+.form-group-small {
+    display: flex;
+    justify-content: space-evenly;
+}
