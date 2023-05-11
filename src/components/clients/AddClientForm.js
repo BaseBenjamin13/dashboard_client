@@ -5,13 +5,9 @@ import React, { useState } from 'react';
 import { Button, useTheme, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
-import { tokens } from "../../theme";
 import { handleFormChange } from '../../helpers/forms';
 
 function AddClientForm({ showClientForm, setShowClientForm }) {
-
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
 
     const [clientForm, setClientForm] = useState(
         {
@@ -27,9 +23,35 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
             phone: '',
         }
     )
+    const [errMsgs, setErrMsgs] = useState(
+        {
+            email: '',
+            name: '',
+            phone: '',
+        }
+    )
 
-    const handleCreateClient = () => {
+    const checkFormForEmptyFields = (inputs, errMsgs, setErrMsgs) => {
+        let errMsgsCopy = errMsgs;
 
+        inputs.map((input, i) => {
+            if(input === ''){
+                let fieldName = Object.keys(clientForm)[i].charAt(0).toUpperCase() + Object.keys(clientForm)[i].slice(1);
+                errMsgsCopy[i] = `${fieldName} Cannot be left blank!`;
+            }
+        })
+        setErrMsgs(errMsgsCopy)
+    }
+
+    const handleCreateClient = async (e) => {
+        e.preventDefault()
+        await checkFormForEmptyFields(
+            [clientForm.email, clientForm.name, clientForm.phone],
+            [errMsgs.email, errMsgs.name, errMsgs.phone],
+            setErrMsgs
+        )
+        console.log(errMsgs)
+        // setShowClientForm(!showClientForm)
     }
 
     return (
@@ -146,9 +168,8 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                     >
                         Cancel
                     </Button>
-                    <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
+                    <Button size="large" type="submit" style={{ fontSize: '20px', marginLeft: '15px' }}
                         variant="contained" color="secondary"
-                        onClick={() => setShowClientForm(!showClientForm)}
                     >
                         Submit
                     </Button>
