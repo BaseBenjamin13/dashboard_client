@@ -31,26 +31,33 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
         }
     )
 
-    const checkFormForEmptyFields = (inputs, errMsgs, setErrMsgs) => {
+    const checkFormForEmptyFields = async (inputs, errMsgs, setErrMsgs) => {
         let errMsgsCopy = errMsgs;
-
+        let anyErrors = false;
         inputs.map((input, i) => {
             if(input === ''){
-                let fieldName = Object.keys(clientForm)[i].charAt(0).toUpperCase() + Object.keys(clientForm)[i].slice(1);
+                anyErrors = true;
+                let fieldName = Object.keys(clientForm)[1].charAt(0).toUpperCase() + Object.keys(clientForm)[i].slice(1);
                 errMsgsCopy[i] = `${fieldName} Cannot be left blank!`;
             }
         })
-        setErrMsgs(errMsgsCopy)
+        await setErrMsgs(errMsgsCopy)
+        return anyErrors;
     }
 
     const handleCreateClient = async (e) => {
         e.preventDefault()
-        await checkFormForEmptyFields(
+        if(checkFormForEmptyFields(
             [clientForm.email, clientForm.name, clientForm.phone],
             [errMsgs.email, errMsgs.name, errMsgs.phone],
             setErrMsgs
-        )
-        console.log(errMsgs)
+        )) {
+            console.log('errors');
+            console.log(errMsgs)
+        }else {
+            console.log('All good!');
+            console.log(errMsgs)
+        }
         // setShowClientForm(!showClientForm)
     }
 
@@ -58,9 +65,10 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
         <div className="client-form">
 
             <div className="form-container">
-                <h1>Add Client</h1>
 
                 <form onSubmit={handleCreateClient} className="form">
+                    <h1>Add Client</h1>
+
                     <TextField
                         InputProps={{ style: { fontSize: 20 } }}
                         InputLabelProps={{ style: { fontSize: 20 } }}
