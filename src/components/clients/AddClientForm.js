@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 // import '../../styles/Login.css';
 
 
-import { Button, useTheme, TextField } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import { Button, TextField } from "@mui/material";
 
 import { handleFormChange } from '../../helpers/forms';
 
@@ -31,14 +30,14 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
         }
     )
 
-    const checkFormForEmptyFields = async (inputs, errMsgs, setErrMsgs) => {
+    const checkFormForEmptyFields = async (errMsgs) => {
         let errMsgsCopy = errMsgs;
         let anyErrors = false;
-        inputs.map((input, i) => {
-            if(input === ''){
+        Object.keys(clientForm).map((input, i) => {
+            if(clientForm[input] === ''){
                 anyErrors = true;
-                let fieldName = Object.keys(clientForm)[1].charAt(0).toUpperCase() + Object.keys(clientForm)[i].slice(1);
-                errMsgsCopy[i] = `${fieldName} Cannot be left blank!`;
+                let fieldName = Object.keys(clientForm)[i].charAt(0).toUpperCase() + Object.keys(clientForm)[i].slice(1);
+                errMsgsCopy[input] = `${fieldName} Cannot be left blank!`;
             }
         })
         await setErrMsgs(errMsgsCopy)
@@ -47,11 +46,8 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
 
     const handleCreateClient = async (e) => {
         e.preventDefault()
-        if(checkFormForEmptyFields(
-            [clientForm.email, clientForm.name, clientForm.phone],
-            [errMsgs.email, errMsgs.name, errMsgs.phone],
-            setErrMsgs
-        )) {
+        let errors = await checkFormForEmptyFields({ email: '', name: '', phone: '', })
+        if(errors) {
             console.log('errors');
             console.log(errMsgs)
         }else {
@@ -78,11 +74,11 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                         label="Name"
                         variant="outlined"
                         color="secondary"
-                        // error={errorMsg.username ? true : false}
-                        // helperText={errorMsg.username ?
-                        //     <span className="error-msg">{errorMsg.username}</span>
-                        //     : null
-                        // }
+                        error={errMsgs.name ? true : false}
+                        helperText={errMsgs.name ?
+                            <span className="error-msg">{errMsgs.name}</span>
+                            : null
+                        }
                         onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                     />
                     <TextField
@@ -94,6 +90,11 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                         label="Email"
                         variant="outlined"
                         color="secondary"
+                        error={errMsgs.email ? true : false}
+                        helperText={errMsgs.email ?
+                            <span className="error-msg">{errMsgs.email}</span>
+                            : null
+                        }
                         onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                     />
                     <TextField
@@ -105,6 +106,11 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                         label="Phone"
                         variant="outlined"
                         color="secondary"
+                        error={errMsgs.phone ? true : false}
+                        helperText={errMsgs.phone ?
+                            <span className="error-msg">{errMsgs.phone}</span>
+                            : null
+                        }
                         onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                     />
                     <TextField
