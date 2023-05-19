@@ -13,13 +13,11 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
 
     const [clientForm, setClientForm] = useState(
         {
-            address: {
-                street: '',
-                suite: '',
-                city: '',
-                state: '',
-                zipcode: '',
-            },
+            street: '',
+            suite: '',
+            city: '',
+            state: '',
+            zipcode: '',
             email: '',
             name: '',
             phone: '',
@@ -73,6 +71,7 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                 })
                 .then((res) => {
                     console.log(res);
+                    setShowClientForm(!showClientForm)
                 })
                 .catch(err => {
                     console.log(err);
@@ -81,7 +80,6 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                 // reedirect to login page
             }
         }
-        // setShowClientForm(!showClientForm)
     }
 
     return (
@@ -193,8 +191,8 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                             InputLabelProps={{ style: { fontSize: 20 } }}
                             // fullWidth
                             margin="normal"
-                            id="zip"
-                            label="Zip"
+                            id="zipcode"
+                            label="ZIP Code"
                             variant="outlined"
                             color="secondary"
                             onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
