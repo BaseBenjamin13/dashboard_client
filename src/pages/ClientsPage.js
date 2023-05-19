@@ -15,14 +15,18 @@ function ClientsPage() {
     const [clients, setClients] = useState();
     const [showClientForm, setShowClientForm] = useState(true);
 
-    useEffect(() => {
+    function getClients() {
         if (user.ID) {
-            axios.get(process.env.REACT_APP_API_URL + `clients/${user.ID}/`)
+            axios.get(`${process.env.REACT_APP_API_URL}clients/${user.ID}/`)
                 .then((res) => {
                     setClients(res.data);
                 })
                 .catch((err) => console.log(err));
         }
+    }
+
+    useEffect(() => {
+        getClients()
     }, [])
 
     return (
@@ -39,7 +43,7 @@ function ClientsPage() {
                 </IconButton>
             </Button>
 
-            {showClientForm && <AddClientForm showClientForm={showClientForm} setShowClientForm={setShowClientForm} />}
+            {showClientForm && <AddClientForm showClientForm={showClientForm} setShowClientForm={setShowClientForm} getClients={getClients} />}
 
             <ClientsSearch />
 

@@ -7,7 +7,7 @@ import { Button, TextField } from "@mui/material";
 
 import { handleFormChange } from '../../helpers/forms';
 
-function AddClientForm({ showClientForm, setShowClientForm }) {
+function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
 
     const { user, setUser } = useContext(UserContext);
 
@@ -72,6 +72,7 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
                 .then((res) => {
                     console.log(res);
                     setShowClientForm(!showClientForm)
+                    getClients()
                 })
                 .catch(err => {
                     console.log(err);
