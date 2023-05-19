@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-// import '../../styles/Login.css';
+import React, { useState, useContext } from 'react';
 
+import axios from 'axios';
+import { UserContext } from '../../contexts/UserContext';
 
 import { Button, TextField } from "@mui/material";
 
@@ -8,13 +9,15 @@ import { handleFormChange } from '../../helpers/forms';
 
 function AddClientForm({ showClientForm, setShowClientForm }) {
 
+    const { user, setUser } = useContext(UserContext);
+
     const [clientForm, setClientForm] = useState(
         {
             address: {
-                city: '',
-                state: '',
                 street: '',
                 suite: '',
+                city: '',
+                state: '',
                 zipcode: '',
             },
             email: '',
@@ -52,7 +55,31 @@ function AddClientForm({ showClientForm, setShowClientForm }) {
             console.log(errMsgs)
         }else {
             console.log('All good!');
-            console.log(errMsgs)
+            console.log(errMsgs);
+            console.log(clientForm)
+            if(user.ID){
+                axios.post(`${process.env.REACT_APP_API_URL}clients/create/${Number(user.ID)}/`, {
+                    address: {
+                        street: clientForm.street,
+                        suite: clientForm.suite,
+                        city: clientForm.city,
+                        state: clientForm.state,
+                        zipcode: clientForm.zipcode,
+                    },
+                    supplier: { email: user.email },
+                    name: clientForm.name,
+                    email: clientForm.email,
+                    phone: clientForm.phone,
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            }else {
+                // reedirect to login page
+            }
         }
         // setShowClientForm(!showClientForm)
     }
