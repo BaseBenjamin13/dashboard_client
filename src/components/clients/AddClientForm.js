@@ -11,7 +11,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
 
     const { user, setUser } = useContext(UserContext);
 
-    const errMsgsInit = {
+    const clientFormFieldsInit = {
         street: '',
         suite: '',
         city: '',
@@ -22,19 +22,8 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
         phone: '',
     }
 
-    const [clientForm, setClientForm] = useState(
-        {
-            street: '',
-            suite: '',
-            city: '',
-            state: '',
-            zipcode: '',
-            email: '',
-            name: '',
-            phone: '',
-        }
-    )
-    const [errMsgs, setErrMsgs] = useState(errMsgsInit)
+    const [clientForm, setClientForm] = useState(clientFormFieldsInit)
+    const [errMsgs, setErrMsgs] = useState(clientFormFieldsInit)
 
     const checkFormForEmptyFields = async (errMsgs) => {
         let errMsgsCopy = errMsgs;
@@ -52,7 +41,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
 
     const handleCreateClient = async (e) => {
         e.preventDefault()
-        let errors = await checkFormForEmptyFields(errMsgsInit)
+        let errors = await checkFormForEmptyFields(clientFormFieldsInit)
         if(errors) {
             console.log('errors');
             console.log(errMsgs)
