@@ -11,6 +11,17 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
 
     const { user, setUser } = useContext(UserContext);
 
+    const errMsgsInit = {
+        street: '',
+        suite: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        email: '',
+        name: '',
+        phone: '',
+    }
+
     const [clientForm, setClientForm] = useState(
         {
             street: '',
@@ -23,13 +34,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
             phone: '',
         }
     )
-    const [errMsgs, setErrMsgs] = useState(
-        {
-            email: '',
-            name: '',
-            phone: '',
-        }
-    )
+    const [errMsgs, setErrMsgs] = useState(errMsgsInit)
 
     const checkFormForEmptyFields = async (errMsgs) => {
         let errMsgsCopy = errMsgs;
@@ -47,7 +52,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
 
     const handleCreateClient = async (e) => {
         e.preventDefault()
-        let errors = await checkFormForEmptyFields({ email: '', name: '', phone: '', })
+        let errors = await checkFormForEmptyFields(errMsgsInit)
         if(errors) {
             console.log('errors');
             console.log(errMsgs)
@@ -148,6 +153,11 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
                         label="Street"
                         variant="outlined"
                         color="secondary"
+                        error={errMsgs.street ? true : false}
+                        helperText={errMsgs.street ?
+                            <span className="error-msg">{errMsgs.street}</span>
+                            : null
+                        }
                         onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                     />
 
@@ -161,6 +171,11 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
                             label="City"
                             variant="outlined"
                             color="secondary"
+                            error={errMsgs.city ? true : false}
+                            helperText={errMsgs.city ?
+                                <span className="error-msg">{errMsgs.city}</span>
+                                : null
+                            }
                             onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                         />
                         <TextField
@@ -172,6 +187,11 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
                             label="State"
                             variant="outlined"
                             color="secondary"
+                            error={errMsgs.state ? true : false}
+                            helperText={errMsgs.state ?
+                                <span className="error-msg">{errMsgs.state}</span>
+                                : null
+                            }
                             onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                         />
                     </div>
@@ -185,6 +205,11 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
                             label="Suite"
                             variant="outlined"
                             color="secondary"
+                            error={errMsgs.suite ? true : false}
+                            helperText={errMsgs.suite ?
+                                <span className="error-msg">{errMsgs.suite}</span>
+                                : null
+                            }
                             onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                         />
                         <TextField
@@ -196,6 +221,11 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients }) {
                             label="ZIP Code"
                             variant="outlined"
                             color="secondary"
+                            error={errMsgs.zipcode ? true : false}
+                            helperText={errMsgs.zipcode ?
+                                <span className="error-msg">{errMsgs.zipcode}</span>
+                                : null
+                            }
                             onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                         />
                     </div>
