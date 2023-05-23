@@ -12,7 +12,6 @@ import Page404 from './pages/404';
 import ClientsPage from './pages/ClientsPage';
 import NavBar from './components/NavBar';
 
-
 function App() {
 
     const [theme, colorMode] = useMode();
@@ -25,6 +24,7 @@ function App() {
 
                     <div className="App">
                         <NavBar />
+
                         <main className="content">
                             <Routes>
                                 <Route path="/" element={<HomePage />} />

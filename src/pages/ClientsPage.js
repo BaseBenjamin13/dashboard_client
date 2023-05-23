@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
@@ -13,7 +14,7 @@ function ClientsPage() {
 
     const { user, setUser } = useContext(UserContext);
     const [clients, setClients] = useState();
-    const [showClientForm, setShowClientForm] = useState(true);
+    const [showClientForm, setShowClientForm] = useState(false);
 
     function getClients() {
         if (user.ID) {
@@ -25,12 +26,24 @@ function ClientsPage() {
         }
     }
 
+    function successMsg() {
+        toast.success('Client Created Successfully!',
+            {
+                duration: 2700,
+                style: {fontSize: 24, color: '#4cceac', backgroundColor: '#434957'}
+            }
+        );
+    } 
+
     useEffect(() => {
         getClients()
     }, [])
 
+    // const notify = () => toast.success('Here is your toast.');
+
     return (
         <div>
+            <Toaster/>
             <h1>Clients</h1>
 
             <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
@@ -43,7 +56,7 @@ function ClientsPage() {
                 </IconButton>
             </Button>
 
-            {showClientForm && <AddClientForm showClientForm={showClientForm} setShowClientForm={setShowClientForm} getClients={getClients} />}
+            {showClientForm && <AddClientForm showClientForm={showClientForm} setShowClientForm={setShowClientForm} getClients={getClients}  successMsg={successMsg}/>}
 
             <ClientsSearch />
 
