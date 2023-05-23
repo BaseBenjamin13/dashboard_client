@@ -7,7 +7,7 @@ import { Button, TextField } from "@mui/material";
 
 import { handleFormChange } from '../../helpers/forms';
 
-function AddClientForm({ showClientForm, setShowClientForm, getClients, successMsg }) {
+function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg }) {
 
     const { user, setUser } = useContext(UserContext);
 
@@ -21,6 +21,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, successM
         name: '',
         phone: '',
     }
+    
 
     const [clientForm, setClientForm] = useState(clientFormFieldsInit)
     const [errMsgs, setErrMsgs] = useState(clientFormFieldsInit)
@@ -65,11 +66,12 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, successM
                 })
                 .then((res) => {
                     console.log(res);
-                    successMsg()
+                    toastMsg(true);
                     setShowClientForm(!showClientForm)
                     getClients()
                 })
                 .catch(err => {
+                    toastMsg(false);
                     console.log(err);
                 })
             }else {

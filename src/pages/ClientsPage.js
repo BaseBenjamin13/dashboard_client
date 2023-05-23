@@ -26,20 +26,35 @@ function ClientsPage() {
         }
     }
 
-    function successMsg() {
-        toast.success('Client Created Successfully!',
-            {
-                duration: 2700,
-                style: {fontSize: 24, color: '#4cceac', backgroundColor: '#434957'}
-            }
-        );
+    function toastMsg(success) {
+        if(success){
+            toast.success('Client Created Successfully!',
+                {
+                    duration: 2700,
+                    style: {
+                        fontSize: 24, 
+                        color: '#4cceac', 
+                        backgroundColor: '#434957'
+                    }
+                }
+            );
+        }else {
+            toast.error('Something Went Wrong!',
+                {
+                    duration: 2700,
+                    style: {
+                        fontSize: 24, 
+                        // color: '#4cceac', 
+                        // backgroundColor: '#434957'
+                    }
+                }
+            );
+        }
     } 
-
+        
     useEffect(() => {
         getClients()
     }, [])
-
-    // const notify = () => toast.success('Here is your toast.');
 
     return (
         <div>
@@ -56,7 +71,14 @@ function ClientsPage() {
                 </IconButton>
             </Button>
 
-            {showClientForm && <AddClientForm showClientForm={showClientForm} setShowClientForm={setShowClientForm} getClients={getClients}  successMsg={successMsg}/>}
+            {showClientForm && 
+                <AddClientForm 
+                    showClientForm={showClientForm} 
+                    setShowClientForm={setShowClientForm} 
+                    getClients={getClients} 
+                    toastMsg={toastMsg}
+                />
+            }
 
             <ClientsSearch />
 
