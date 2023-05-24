@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
 import { handleFormChange } from '../../helpers/forms';
 
@@ -21,7 +21,12 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
         name: '',
         phone: '',
     }
-    
+
+    const [state, setState] = useState('');
+
+    const handleStateChange = (e) => {
+        setState(e.target.value);
+    };
 
     const [clientForm, setClientForm] = useState(clientFormFieldsInit)
     const [errMsgs, setErrMsgs] = useState(clientFormFieldsInit)
@@ -30,7 +35,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
         let errMsgsCopy = errMsgs;
         let anyErrors = false;
         Object.keys(clientForm).map((input, i) => {
-            if(clientForm[input] === ''){
+            if (clientForm[input] === '') {
                 anyErrors = true;
                 let fieldName = Object.keys(clientForm)[i].charAt(0).toUpperCase() + Object.keys(clientForm)[i].slice(1);
                 errMsgsCopy[input] = `${fieldName} Cannot be left blank!`;
@@ -43,14 +48,14 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
     const handleCreateClient = async (e) => {
         e.preventDefault()
         let errors = await checkFormForEmptyFields(clientFormFieldsInit)
-        if(errors) {
+        if (errors) {
             console.log('errors');
             console.log(errMsgs)
-        }else {
+        } else {
             console.log('All good!');
             console.log(errMsgs);
             console.log(clientForm)
-            if(user.ID){
+            if (user.ID) {
                 axios.post(`${process.env.REACT_APP_API_URL}clients/create/${Number(user.ID)}/`, {
                     address: {
                         street: clientForm.street,
@@ -64,17 +69,17 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                     email: clientForm.email,
                     phone: clientForm.phone,
                 })
-                .then((res) => {
-                    console.log(res);
-                    toastMsg(true);
-                    setShowClientForm(!showClientForm)
-                    getClients()
-                })
-                .catch(err => {
-                    toastMsg(false);
-                    console.log(err);
-                })
-            }else {
+                    .then((res) => {
+                        console.log(res);
+                        toastMsg(true);
+                        setShowClientForm(!showClientForm)
+                        getClients()
+                    })
+                    .catch(err => {
+                        toastMsg(false);
+                        console.log(err);
+                    })
+            } else {
                 // reedirect to login page
             }
         }
@@ -157,7 +162,6 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                         <TextField
                             InputProps={{ style: { fontSize: 20 } }}
                             InputLabelProps={{ style: { fontSize: 20 } }}
-                            // fullWidth
                             margin="normal"
                             id="city"
                             label="City"
@@ -170,28 +174,78 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                             }
                             onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
                         />
-                        <TextField
-                            InputProps={{ style: { fontSize: 20 } }}
-                            InputLabelProps={{ style: { fontSize: 20 } }}
-                            // fullWidth
-                            margin="normal"
-                            id="state"
-                            label="State"
-                            variant="outlined"
-                            color="secondary"
-                            error={errMsgs.state ? true : false}
-                            helperText={errMsgs.state ?
-                                <span className="error-msg">{errMsgs.state}</span>
-                                : null
-                            }
-                            onChange={(e) => handleFormChange(clientForm, setClientForm, e)}
-                        />
+                        <FormControl sx={{ m: 2, minWidth: 120 }}>
+                            <InputLabel id="state-label">State</InputLabel>
+                            <Select
+                                style={{ fontSize: 20 }}
+                                labelId="state-label"
+                                label="State"
+                                value={state}
+                                color="secondary"
+                                onChange={(e) => {
+                                    e.target.id = "state"
+                                    handleStateChange(e)
+                                    handleFormChange(clientForm, setClientForm, e)
+                                }}
+                            >
+                                <MenuItem value="AL">Alabama</MenuItem>
+                                <MenuItem value="AK">Alaska</MenuItem>
+                                <MenuItem value="AZ">Arizona</MenuItem>
+                                <MenuItem value="AR">Arkansas</MenuItem>
+                                <MenuItem value="AR">Arkansas</MenuItem>
+                                <MenuItem value="CA">California</MenuItem>
+                                <MenuItem value="CO">Colorado</MenuItem>
+                                <MenuItem value="CT">Connecticut</MenuItem>
+                                <MenuItem value="DE">Delaware</MenuItem>
+                                <MenuItem value="DC">District of Columbia</MenuItem>
+                                <MenuItem value="FL">Florida</MenuItem>
+                                <MenuItem value="GA">Georgia</MenuItem>
+                                <MenuItem value="HI">Hawaii</MenuItem>
+                                <MenuItem value="ID">Idaho</MenuItem>
+                                <MenuItem value="IL">Illinois</MenuItem>
+                                <MenuItem value="IN">Indiana</MenuItem>
+                                <MenuItem value="IA">Iowa</MenuItem>
+                                <MenuItem value="KS">Kansas</MenuItem>
+                                <MenuItem value="KY">Kentucky</MenuItem>
+                                <MenuItem value="LA">Louisiana</MenuItem>
+                                <MenuItem value="ME">Maine</MenuItem>
+                                <MenuItem value="MD">Maryland</MenuItem>
+                                <MenuItem value="MA">Massachusetts</MenuItem>
+                                <MenuItem value="MI">Michigan</MenuItem>
+                                <MenuItem value="MN">Minnesota</MenuItem>
+                                <MenuItem value="MS">Mississippi</MenuItem>
+                                <MenuItem value="MO">Missouri</MenuItem>
+                                <MenuItem value="MT">Montana</MenuItem>
+                                <MenuItem value="NE">Nebraska</MenuItem>
+                                <MenuItem value="NV">Nebraska</MenuItem>
+                                <MenuItem value="NH">New Hampshire</MenuItem>
+                                <MenuItem value="NJ">New Jersey</MenuItem>
+                                <MenuItem value="NM">New Mexico</MenuItem>
+                                <MenuItem value="NY">New York</MenuItem>
+                                <MenuItem value="NC">North Carolina</MenuItem>
+                                <MenuItem value="ND">North Dakota</MenuItem>
+                                <MenuItem value="OH">Ohio</MenuItem>
+                                <MenuItem value="OK">Oklahoma</MenuItem>
+                                <MenuItem value="OR">Oregon</MenuItem>
+                                <MenuItem value="PA">Pennsylvania</MenuItem>
+                                <MenuItem value="RI">Rhode Island</MenuItem>
+                                <MenuItem value="SC">South Carolina</MenuItem>
+                                <MenuItem value="SD">South Dakota</MenuItem>
+                                <MenuItem value="TN">Tennessee</MenuItem>
+                                <MenuItem value="TX">Texas</MenuItem>
+                                <MenuItem value="UT">Utah</MenuItem>
+                                <MenuItem value="VT">Vermont</MenuItem>
+                                <MenuItem value="VA">Virginia</MenuItem>
+                                <MenuItem value="WV">Washington</MenuItem>
+                                <MenuItem value="WI">Wisconsin</MenuItem>
+                                <MenuItem value="WY">Wyoming</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                     <div className="form-group-small">
                         <TextField
                             InputProps={{ style: { fontSize: 20 } }}
                             InputLabelProps={{ style: { fontSize: 20 } }}
-                            // fullWidth
                             margin="normal"
                             id="suite"
                             label="Suite"
@@ -207,7 +261,6 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                         <TextField
                             InputProps={{ style: { fontSize: 20 } }}
                             InputLabelProps={{ style: { fontSize: 20 } }}
-                            // fullWidth
                             margin="normal"
                             id="zipcode"
                             label="ZIP Code"
