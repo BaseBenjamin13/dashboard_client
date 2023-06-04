@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/404';
 import ClientsPage from './pages/ClientsPage';
+import InvoicesPage from './pages/InvoicesPage';
 import NavBar from './components/NavBar';
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
                                 <Route path="/login" element={<LoginPage />} />
 
                                 <Route path="/clients" element={<ClientsPage />} />
+
+                                <Route path="/invoices" element={<InvoicesPage />} />
 
                                 <Route path="*" element={<Page404 />} />
                             </Routes>
