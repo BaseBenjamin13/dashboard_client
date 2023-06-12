@@ -49,12 +49,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
         e.preventDefault()
         let errors = await checkFormForEmptyFields(clientFormFieldsInit)
         if (errors) {
-            console.log('errors');
-            console.log(errMsgs)
         } else {
-            console.log('All good!');
-            console.log(errMsgs);
-            console.log(clientForm)
             if (user.ID) {
                 axios.post(`${process.env.REACT_APP_API_URL}clients/create/${Number(user.ID)}/`, {
                     address: {
@@ -70,14 +65,12 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                     phone: clientForm.phone,
                 })
                     .then((res) => {
-                        console.log(res);
                         toastMsg(true);
                         setShowClientForm(!showClientForm)
                         getClients()
                     })
                     .catch(err => {
                         toastMsg(false);
-                        console.log(err);
                     })
             } else {
                 // reedirect to login page

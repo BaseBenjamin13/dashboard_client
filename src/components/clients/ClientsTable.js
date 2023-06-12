@@ -13,15 +13,16 @@ function ClientsTable({ clients }) {
     ];
     const rows = [];
 
-    clients.map(client => {console.log(client) 
+    clients.map(client => {
         rows.push({
-        id: client.id,
-        name: client.name,
-        phone: client.phone,
-        email: client.email,
-        state: client.address.state
-    })});
-      
+            id: client.id,
+            name: client.name,
+            phone: client.phone,
+            email: client.email,
+            state: client.address.state
+        })
+    });
+
 
     console.log(clients);
 
@@ -30,7 +31,7 @@ function ClientsTable({ clients }) {
             {/* <h1>Clients Table</h1> */}
             {rows.length ?
                 <DataGrid
-                    style={{fontSize: '20px', margin: '0 auto'}}
+                    style={{ fontSize: '20px', margin: '0 auto' }}
                     rows={rows}
                     columns={columns}
                     pageSize={5}
