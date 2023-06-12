@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import axios from 'axios';
 
 import { UserContext } from '../contexts/UserContext';
 import '../styles/HomePage.css'
@@ -8,6 +9,20 @@ import { Pie } from '@nivo/pie';
 function HomePage() {
 
     const { user, setUser } = useContext(UserContext)
+
+    function getClientLocations() {
+        if (user.ID) {
+            axios.get(`${process.env.REACT_APP_API_URL}clients/${user.ID}/state/count`)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => console.log(err));
+        }
+    }
+
+    useEffect(() => {
+        getClientLocations();
+    }, [] )
 
     return (
         <div>
