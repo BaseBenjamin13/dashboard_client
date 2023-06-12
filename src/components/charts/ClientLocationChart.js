@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+import '../../styles/HomePage.css'
 
 import { Pie } from '@nivo/pie';
 
 function ClientLocationChart({ userID }) {
 
-    const [ clientLocations, setClientLocations ] = useState();
+    const [clientLocations, setClientLocations] = useState();
 
     function getClientLocations() {
         if (userID) {
@@ -25,9 +26,10 @@ function ClientLocationChart({ userID }) {
         getClientLocations();
     }, [])
 
-  return (
-    <div className='chart-container'>
-                <h2>Client Location</h2>
+    return (
+        <div className='chart-container'>
+            <h2>Client Location</h2>
+            <div className='chart'>
                 {
                     clientLocations ?
                         < Pie
@@ -88,10 +90,11 @@ function ClientLocationChart({ userID }) {
                             }}
                             width={700}
                         />
-                        : <h1>Loading...</h1>
+                    : <h1>Loading...</h1>
                 }
             </div>
-  )
+        </div>
+    )
 }
 
 export default ClientLocationChart

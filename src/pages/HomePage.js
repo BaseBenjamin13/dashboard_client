@@ -3,8 +3,6 @@ import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import '../styles/HomePage.css'
 
-import { Pie } from '@nivo/pie';
-
 import ClientLocationChart from '../components/charts/ClientLocationChart';
 
 function HomePage() {
