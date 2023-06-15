@@ -25,6 +25,7 @@
     "env": "^0.0.2",
     "formik": "^2.2.9",
     "react": "^18.2.0",
+    "react-basic-charts": "^0.1.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-pro-sidebar": "^0.7.1",
