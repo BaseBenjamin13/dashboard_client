@@ -8,25 +8,24 @@ import CanvasJSReact from '@canvasjs/react-charts';
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-function SumOfInvoiceValues() {
+function SumOfInvoiceValues({ userID }) {
 
-    const goal = 1000;
+    const goal = 1500;
     const [sumOfInvoiceValues, setSumOfInvoiceValues] = useState(0);
 
-    // function getInvoiceCounts() {
-    //     if (userID) {
-    //         axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/count`)
-    //             .then((res) => {
-    //                 console.log(res.data.count)
-    //                 setInvoicePaidCount(res.data.count)
-    //             })
-    //             .catch((err) => console.log(err));
-    //     }
-    // }
+    function getSumOfInvoiceValues() {
+        if (userID) {
+            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/sum`)
+                .then((res) => {
+                    setSumOfInvoiceValues(res.data[0])
+                })
+                .catch((err) => console.log(err));
+        }
+    }
 
 
     useEffect(() => {
-        // getInvoiceCounts();
+        getSumOfInvoiceValues();
     }, [])
 
     const options = {
@@ -38,7 +37,7 @@ function SumOfInvoiceValues() {
         subtitles: [{
             text: `Total: $${sumOfInvoiceValues}`,
             verticalAlign: "center",
-            fontSize: 24,
+            fontSize: 32,
             dockInsidePlotArea: true
         }],
         data: [{
@@ -47,15 +46,15 @@ function SumOfInvoiceValues() {
             indexLabel: "{name}: {y}",
             yValueFormatString: "'$'#,###",
             dataPoints: [
+                { name: "Goal", y: goal - sumOfInvoiceValues, color: "hsl(7, 86%, 50%)" },
                 { name: "Revenue", y: sumOfInvoiceValues, color: "hsl(112, 86%, 42%)" },
-                { name: "Goal", y: goal - 50, color: "hsl(7, 86%, 50%)" },
             ]
         }]
     }
 
     return (
         <div className='chart-container'>
-            <h2>Invoices Paid & Unpaid</h2>
+            <h2>Total Value of Paid Invoices</h2>
             <div className='chart'>
                 {
                     true ?
