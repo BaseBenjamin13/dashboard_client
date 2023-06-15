@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/HomePage.css'
 
@@ -14,13 +14,11 @@ function InvoicesCountChart({ userID }) {
         if (userID) {
             axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/unpaid/count`)
                 .then((res) => {
-                    console.log(res.data.count)
                     setInvoiceUnpaidCount(res.data.count)
                 })
                 .catch((err) => console.log(err));
             axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/count`)
                 .then((res) => {
-                    console.log(res.data.count)
                     setInvoicePaidCount(res.data.count)
                 })
                 .catch((err) => console.log(err));

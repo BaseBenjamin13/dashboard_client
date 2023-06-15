@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/HomePage.css'
-
-import { Pie } from '@nivo/pie';
 
 import CanvasJSReact from '@canvasjs/react-charts';
 
