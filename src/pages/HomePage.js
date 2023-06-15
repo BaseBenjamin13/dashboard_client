@@ -5,6 +5,7 @@ import '../styles/HomePage.css'
 
 import ClientLocationChart from '../components/charts/ClientLocationChart';
 import InvoicesCountChart from '../components/charts/InvoicesCountChart';
+import SumOfInvoiceValues from '../components/charts/SumOfInvoiceValues';
 
 function HomePage() {
 
@@ -20,7 +21,7 @@ function HomePage() {
                     <InvoicesCountChart userID={user.ID} />
                 </div>
                 <div className="chart-group">
-                    <ClientLocationChart userID={user.ID} />
+                    <SumOfInvoiceValues userID={user.ID} />
 
                     <InvoicesCountChart userID={user.ID} />
                 </div>
