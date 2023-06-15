@@ -13,10 +13,18 @@ function HomePage() {
     return (
         <div>
             <h1>Home Page</h1>
+            <div className="home-chart-container">
+                <div className="chart-group">
+                    <ClientLocationChart userID={user.ID} />
 
-            <ClientLocationChart userID={user.ID} />
+                    <InvoicesCountChart userID={user.ID} />
+                </div>
+                <div className="chart-group">
+                    <ClientLocationChart userID={user.ID} />
 
-            <InvoicesCountChart userID={user.ID} />
+                    <InvoicesCountChart userID={user.ID} />
+                </div>
+            </div>
 
         </div>
     )

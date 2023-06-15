@@ -39,7 +39,7 @@ function InvoicesCountChart({ userID }) {
                 {
                     invoicePaidCount && invoiceUnpaidCount ?
                         <Chart
-                            height={300}
+                            height={350}
                             colors={['#A6E7DB', '#2D7A7A', '#76C7D2']}
                             data={{
                                 Unpaid: [
