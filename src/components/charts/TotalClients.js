@@ -21,8 +21,17 @@ function TotalClients({ userID }) {
         getTotalClients();
     }, [])
 
-  return (
-    <div>TotalClients</div>
+    return (
+        <div className='chart-container'>
+            <h2>Total Amount of Clients</h2>
+            <div className='chart total-clients-container'>
+                {
+                    totalClients ?
+                        <h1>{totalClients}</h1>
+                        : <h1>Loading...</h1>
+                }
+            </div>
+        </div>
   )
 }
 
