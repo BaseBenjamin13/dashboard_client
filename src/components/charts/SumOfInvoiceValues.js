@@ -57,7 +57,7 @@ function SumOfInvoiceValues({ userID }) {
             <h2>Total Value of Paid Invoices</h2>
             <div className='chart'>
                 {
-                    true ?
+                    sumOfInvoiceValues ?
                         <CanvasJSChart options={options} />
                         : <h1>Loading...</h1>
                 }
