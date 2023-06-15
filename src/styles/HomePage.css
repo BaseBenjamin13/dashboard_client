@@ -32,6 +32,16 @@
     pointer-events: none;
 }
 
-.total-clients-container {
-    
+#total-clients-container {
+    height: 38vh;
+    display: flex;
+    align-items: center;
+}
+.total-clients {
+    font-family: 'Economica', sans-serif;
+    margin: 0 auto;
+    font-size: 125px;
+    text-shadow: 0px 0px 20px lightblue;
+    color: var(--myDarkBlue);
+    /* color: hsl(112, 86%, 42%); */
 }

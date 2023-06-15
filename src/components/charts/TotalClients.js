@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/HomePage.css'
 
+
 function TotalClients({ userID }) {
 
     const [totalClients, setTotalClients] = useState();
@@ -24,10 +25,10 @@ function TotalClients({ userID }) {
     return (
         <div className='chart-container'>
             <h2>Total Amount of Clients</h2>
-            <div className='chart total-clients-container'>
+            <div className='chart' id='total-clients-container'>
                 {
                     totalClients ?
-                        <h1>{totalClients}</h1>
+                        <h1 className='total-clients'>{totalClients}</h1>
                         : <h1>Loading...</h1>
                 }
             </div>
