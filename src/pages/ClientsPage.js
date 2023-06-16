@@ -10,11 +10,16 @@ import ClientsTable from '../components/clients/ClientsTable';
 import ClientsSearch from '../components/clients/ClientsSearch';
 import AddClientForm from '../components/clients/AddClientForm';
 
+import { useLocation } from 'react-router-dom';
+
 function ClientsPage() {
 
+    const location = useLocation();
     const { user, setUser } = useContext(UserContext);
     const [clients, setClients] = useState();
-    const [showClientForm, setShowClientForm] = useState(false);
+    const [showClientForm, setShowClientForm] = useState(
+        location.state?.addClient ? true : false
+    );
 
     function getClients() {
         if (user.ID) {
@@ -27,38 +32,36 @@ function ClientsPage() {
     }
 
     function toastMsg(success) {
-        if(success){
+        if (success) {
             toast.success('Client Created Successfully!',
                 {
                     duration: 2700,
                     style: {
-                        fontSize: 24, 
-                        color: '#4cceac', 
+                        fontSize: 24,
+                        color: '#4cceac',
                         backgroundColor: '#434957'
                     }
                 }
             );
-        }else {
+        } else {
             toast.error('Something Went Wrong!',
                 {
                     duration: 2700,
                     style: {
-                        fontSize: 24, 
-                        // color: '#4cceac', 
-                        // backgroundColor: '#434957'
+                        fontSize: 24,
                     }
                 }
             );
         }
-    } 
-        
+    }
+
     useEffect(() => {
         getClients()
     }, [])
 
     return (
         <div>
-            <Toaster/>
+            <Toaster />
             <h1>Clients</h1>
 
             <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
@@ -71,11 +74,11 @@ function ClientsPage() {
                 </IconButton>
             </Button>
 
-            {showClientForm && 
-                <AddClientForm 
-                    showClientForm={showClientForm} 
-                    setShowClientForm={setShowClientForm} 
-                    getClients={getClients} 
+            {showClientForm &&
+                <AddClientForm
+                    showClientForm={showClientForm}
+                    setShowClientForm={setShowClientForm}
+                    getClients={getClients}
                     toastMsg={toastMsg}
                 />
             }
