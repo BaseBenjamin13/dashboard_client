@@ -15,8 +15,8 @@ function InvoicesTable({ invoices }) {
 
     invoices.map(invoice => {
         rows.push({
-            amount: invoices.amount,
             id: invoice.client.id,
+            amount: invoice.amount,
             clientName: invoice.client.name,
             dueDate: invoice.due_date,
             paid: invoice.paid,
