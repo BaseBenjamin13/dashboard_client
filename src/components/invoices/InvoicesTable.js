@@ -6,7 +6,7 @@ function InvoicesTable({ invoices }) {
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 120 },
-        { field: 'amount', headerName: 'Amount', width: 250 },
+        { field: 'amount', headerName: 'Amount', width: 250, cellClassName: 'invoice-amount' },
         { field: 'clientName', headerName: 'Client Name', width: 250 },
         { field: 'dueDate', headerName: 'Due Date', width: 250 },
         { field: 'paid', headerName: 'Paid', width: 250 },
@@ -16,7 +16,7 @@ function InvoicesTable({ invoices }) {
     invoices.map(invoice => {
         rows.push({
             id: invoice.client.id,
-            amount: invoice.amount,
+            amount: '$' + invoice.amount,
             clientName: invoice.client.name,
             dueDate: invoice.due_date,
             paid: invoice.paid,
