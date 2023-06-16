@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
-import ClientsSearch from '../components/clients/ClientsSearch';
+import TableSearch from '../components/TableSearch';
 import AddClientForm from '../components/clients/AddClientForm';
 
 import { useLocation } from 'react-router-dom';
@@ -83,7 +83,7 @@ function ClientsPage() {
                 />
             }
 
-            <ClientsSearch />
+            <TableSearch label="Search Clients" />
 
             {clients ?
                 <ClientsTable clients={clients} />

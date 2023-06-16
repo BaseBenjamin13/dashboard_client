@@ -4,6 +4,7 @@ import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 
 import InvoicesTable from '../components/invoices/InvoicesTable';
+import TableSearch from '../components/TableSearch';
 
 function InvoicesPage() {
 
@@ -27,6 +28,9 @@ function InvoicesPage() {
 
     return (
         <div>
+
+            <TableSearch label="Search Invoices" />
+
             {invoices ?
                 <InvoicesTable invoices={invoices} />
                 : <h1>You haven't added any invoices yet.</h1>

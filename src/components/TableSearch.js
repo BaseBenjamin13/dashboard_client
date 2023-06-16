@@ -3,7 +3,7 @@ import React from 'react';
 import { TextField, Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-function ClientsSearch() {
+function ClientsSearch({ label }) {
     return (
         <div>
             <form className='search-form'>
@@ -25,7 +25,7 @@ function ClientsSearch() {
                     fullWidth
                     margin="normal"
                     id="search"
-                    label="Search"
+                    label={label}
                     variant="outlined"
                     color="secondary"
                     // onChange={(e) => handleFormChange(searchForm, setSearchForm, e)}
