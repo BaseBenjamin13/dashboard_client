@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { UserContext } from '../contexts/UserContext';
 
+import InvoicesTable from '../components/invoices/InvoicesTable';
+
 function InvoicesPage() {
 
     const { user, setUser } = useContext(UserContext);
@@ -24,7 +26,12 @@ function InvoicesPage() {
     }, [])
 
     return (
-        <div>InvoicesPage</div>
+        <div>
+            {invoices ?
+                <InvoicesTable invoices={invoices} />
+                : <h1>You haven't added any invoices yet.</h1>
+            }
+        </div>
     )
 }
 
