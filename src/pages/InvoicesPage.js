@@ -1,15 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 import { UserContext } from '../contexts/UserContext';
+
+import { Button, IconButton } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 import InvoicesTable from '../components/invoices/InvoicesTable';
 import TableSearch from '../components/TableSearch';
 
 function InvoicesPage() {
 
+    const location = useLocation();
     const { user, setUser } = useContext(UserContext);
     const [invoices, setInvoices] = useState();
+    const [showInvoiceForm, setShowInvoiceForm] = useState(
+        location.state?.addInvoice ? true : false
+    );
 
     function getInvoices() {
         if (user.ID) {
@@ -28,6 +36,16 @@ function InvoicesPage() {
 
     return (
         <div>
+
+            <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
+                variant="contained" color="secondary"
+                onClick={() => setShowInvoiceForm(!showInvoiceForm)}
+            >
+                Add Invoice
+                <IconButton aria-label="plus icon">
+                    <AddIcon />
+                </IconButton>
+            </Button>
 
             <TableSearch label="Search Invoices" />
 
