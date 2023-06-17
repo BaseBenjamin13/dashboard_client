@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import InvoicesTable from '../components/invoices/InvoicesTable';
 import TableSearch from '../components/TableSearch';
+import AddInvoiceForm from '../components/invoices/AddInvoiceForm';
 
 function InvoicesPage() {
 
@@ -37,7 +38,7 @@ function InvoicesPage() {
     return (
         <div>
 
-            <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
+            <Button size="large" style={{ fontSize: '20px', marginLeft: '15px', marginTop: 30}}
                 variant="contained" color="secondary"
                 onClick={() => setShowInvoiceForm(!showInvoiceForm)}
             >
@@ -46,6 +47,15 @@ function InvoicesPage() {
                     <AddIcon />
                 </IconButton>
             </Button>
+
+            {showInvoiceForm &&
+                <AddInvoiceForm
+                    showClientForm={showInvoiceForm}
+                    setShowClientForm={setShowInvoiceForm}
+                    getClients={getInvoices}
+                    // toastMsg={toastMsg}
+                />
+            }
 
             <TableSearch label="Search Invoices" />
 
