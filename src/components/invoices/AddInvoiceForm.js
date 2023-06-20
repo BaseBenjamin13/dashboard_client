@@ -25,8 +25,29 @@ function AddInvoiceForm() {
     const [showForm, setShowForm] = useState(false);
     const [dueDate, setDueDate] = useState(Date | null);
 
-    const handleInvoiceSubmit = () => {
-
+    const handleInvoiceSubmit = (e) => {
+        e.preventDefault();
+        if (user.ID) {
+            axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/19/`, {
+                supplier: {email: user.email},
+                client: {name: 'paul'},
+                amount: 55,
+                paid: true,
+                due_date: `2023-06-24`,
+                // due_date: `${dueDate.getFullYear()}-${dueDate.getMonth()}-${dueDate.getDate()}`,
+                // amount: invoiceForm.amount,
+                // paid: invoiceForm.paid,
+                // date: dueDate,
+            })
+                .then((res) => {
+                    // toastMsg(true);
+                    setShowForm(!showForm)
+                    // getClients()
+                })
+                .catch(err => {
+                    // toastMsg(false);
+                })
+        }
     }
 
     const handleFormChangeTemp = (e) => {
