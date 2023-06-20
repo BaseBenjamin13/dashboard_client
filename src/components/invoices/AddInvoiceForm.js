@@ -4,6 +4,10 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
 import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { handleFormChange } from '../../helpers/forms';
 
@@ -14,15 +18,21 @@ function AddInvoiceForm() {
     const invoiceFormFieldsInit = {
         amount: '',
         paid: false,
-        date: '',
     }
 
     const [invoiceForm, setInvoiceForm] = useState(invoiceFormFieldsInit)
     const [errMsgs, setErrMsgs] = useState(invoiceFormFieldsInit)
     const [showForm, setShowForm] = useState(false);
+    const [dueDate, setDueDate] = useState(Date | null);
 
     const handleInvoiceSubmit = () => {
 
+    }
+
+    const handleFormChangeTemp = (e) => {
+        // handleFormChange(invoiceForm, setInvoiceForm, e)
+        console.log(e)
+        console.log(invoiceForm)
     }
 
     return (
@@ -46,7 +56,8 @@ function AddInvoiceForm() {
                         //     <span className="error-msg">{errMsgs.name}</span>
                         //     : null
                         // }
-                        onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                        onChange={(e) => handleFormChangeTemp(e)}
+                        // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
                     <TextField
                         InputProps={{ style: { fontSize: 20 } }}
@@ -58,28 +69,27 @@ function AddInvoiceForm() {
                         variant="outlined"
                         color="secondary"
                         error={errMsgs.email ? true : false}
-                        helperText={errMsgs.email ?
-                            <span className="error-msg">{errMsgs.email}</span>
-                            : null
-                        }
-                        onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                        // helperText={errMsgs.email ?
+                        //     <span className="error-msg">{errMsgs.email}</span>
+                        //     : null
+                        // }
+                        onChange={(e) => handleFormChangeTemp(e)}
+                        // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
-                    <TextField
-                        InputProps={{ style: { fontSize: 20 } }}
-                        InputLabelProps={{ style: { fontSize: 20 } }}
-                        fullWidth
-                        margin="normal"
-                        id="date"
-                        label="Due Date"
-                        variant="outlined"
-                        color="secondary"
-                        error={errMsgs.phone ? true : false}
-                        helperText={errMsgs.phone ?
-                            <span className="error-msg">{errMsgs.phone}</span>
-                            : null
-                        }
-                        onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
-                    />
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['DatePicker']}>
+                            <DatePicker 
+                                label="Pick a due date"
+                                
+                                onChange={(newDate) => {
+                                    setDueDate(newDate) 
+                                    console.log(dueDate)
+                                }}
+                                // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                            />
+                        </DemoContainer>
+                    </LocalizationProvider>
 
                     <br></br>
 
