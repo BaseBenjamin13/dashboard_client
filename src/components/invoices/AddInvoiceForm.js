@@ -27,14 +27,15 @@ function AddInvoiceForm() {
 
     const handleInvoiceSubmit = (e) => {
         e.preventDefault();
+    
         if (user.ID) {
-            axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/19/`, {
+            axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/23/`, {
                 supplier: {email: user.email},
                 client: {name: 'paul'},
                 amount: 55,
                 paid: true,
-                due_date: `2023-06-24`,
-                // due_date: `${dueDate.getFullYear()}-${dueDate.getMonth()}-${dueDate.getDate()}`,
+                // due_date: `2023-06-24`,
+                due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
                 // amount: invoiceForm.amount,
                 // paid: invoiceForm.paid,
                 // date: dueDate,
