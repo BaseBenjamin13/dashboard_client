@@ -35,8 +35,8 @@ function AddInvoiceForm() {
             axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/${selectedClient.id}/`, {
                 supplier: { email: user.email },
                 client: { name: selectedClient.name },
-                amount: 55,
-                paid: true,
+                amount: invoiceForm.amount,
+                paid: invoiceForm.paid,
                 due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
                 // amount: invoiceForm.amount,
                 // paid: invoiceForm.paid,
@@ -106,8 +106,7 @@ function AddInvoiceForm() {
                         //     <span className="error-msg">{errMsgs.name}</span>
                         //     : null
                         // }
-                        onChange={(e) => handleFormChangeTemp(e)}
-                    // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                        onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
                     <TextField
                         InputProps={{ style: { fontSize: 20 } }}
@@ -123,8 +122,7 @@ function AddInvoiceForm() {
                         //     <span className="error-msg">{errMsgs.email}</span>
                         //     : null
                         // }
-                        onChange={(e) => handleFormChangeTemp(e)}
-                    // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                        onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
