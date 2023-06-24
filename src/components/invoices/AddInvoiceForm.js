@@ -31,10 +31,10 @@ function AddInvoiceForm() {
     const handleInvoiceSubmit = (e) => {
         e.preventDefault();
 
-        if (user.ID) {
-            axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/23/`, {
+        if (user.ID && selectedClient) {
+            axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/${selectedClient.id}/`, {
                 supplier: { email: user.email },
-                client: { name: 'paul' },
+                client: { name: selectedClient.name },
                 amount: 55,
                 paid: true,
                 due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
@@ -49,6 +49,8 @@ function AddInvoiceForm() {
                 .catch(err => {
                     // toastMsg(false);
                 })
+        } else {
+            console.log('need to login or select client');
         }
     }
 
