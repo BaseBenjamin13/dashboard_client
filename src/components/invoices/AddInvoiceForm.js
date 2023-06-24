@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
-import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import { Button, TextField, Stack, Autocomplete } from "@mui/material";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -29,18 +29,16 @@ function AddInvoiceForm() {
 
     const handleInvoiceSubmit = (e) => {
         e.preventDefault();
-    
+
         if (user.ID) {
             axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/23/`, {
-                supplier: {email: user.email},
-                client: {name: 'paul'},
+                supplier: { email: user.email },
+                client: { name: 'paul' },
                 amount: 55,
                 paid: true,
-                // due_date: `2023-06-24`,
                 due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
                 // amount: invoiceForm.amount,
                 // paid: invoiceForm.paid,
-                // date: dueDate,
             })
                 .then((res) => {
                     // toastMsg(true);
@@ -59,6 +57,10 @@ function AddInvoiceForm() {
         console.log(invoiceForm)
     }
 
+    const handleClientSearchChange = (e) => {
+        
+    }
+
     useEffect(() => {
         getClients(user.ID, setClients);
     }, [])
@@ -69,6 +71,17 @@ function AddInvoiceForm() {
 
                 <form onSubmit={handleInvoiceSubmit} className="form">
                     <h1>Add Client</h1>
+
+                    <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        color="secondary"
+                        options={clients?.map((client) => client.name)}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Movie" />}
+                        onChange={(e) => handleClientSearchChange(e)}
+                    />
+
 
                     <TextField
                         InputProps={{ style: { fontSize: 20 } }}
@@ -85,7 +98,7 @@ function AddInvoiceForm() {
                         //     : null
                         // }
                         onChange={(e) => handleFormChangeTemp(e)}
-                        // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                    // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
                     <TextField
                         InputProps={{ style: { fontSize: 20 } }}
@@ -102,19 +115,16 @@ function AddInvoiceForm() {
                         //     : null
                         // }
                         onChange={(e) => handleFormChangeTemp(e)}
-                        // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
+                    // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DatePicker']}>
-                            <DatePicker 
+                            <DatePicker
                                 label="Pick a due date"
-                                
                                 onChange={(newDate) => {
-                                    setDueDate(newDate) 
-                                    console.log(dueDate)
+                                    setDueDate(newDate)
                                 }}
-                                // onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                             />
                         </DemoContainer>
                     </LocalizationProvider>
