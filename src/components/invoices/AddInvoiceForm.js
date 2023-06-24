@@ -26,6 +26,7 @@ function AddInvoiceForm() {
     const [showForm, setShowForm] = useState(false);
     const [dueDate, setDueDate] = useState(Date | null);
     const [clients, setClients] = useState();
+    const [selectedClient, setSelectedClient] = useState();
 
     const handleInvoiceSubmit = (e) => {
         e.preventDefault();
@@ -58,7 +59,7 @@ function AddInvoiceForm() {
     }
 
     const handleClientSearchChange = (e) => {
-        
+        setSelectedClient(clients[e.target.attributes[3].value])
     }
 
     useEffect(() => {
@@ -75,10 +76,16 @@ function AddInvoiceForm() {
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
-                        color="secondary"
+
                         options={clients?.map((client) => client.name)}
                         sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Movie" />}
+                        renderInput={(params) => {
+                            return <TextField
+                                {...params}
+                                label="Search for Client"
+                                color="secondary"
+                            />
+                        }}
                         onChange={(e) => handleClientSearchChange(e)}
                     />
 
