@@ -9,6 +9,7 @@ import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
 import TableSearch from '../components/TableSearch';
 import AddClientForm from '../components/clients/AddClientForm';
+import getClients from '../helpers/getClients';
 
 import { useLocation } from 'react-router-dom';
 
@@ -20,16 +21,6 @@ function ClientsPage() {
     const [showClientForm, setShowClientForm] = useState(
         location.state?.addClient ? true : false
     );
-
-    function getClients() {
-        if (user.ID) {
-            axios.get(`${process.env.REACT_APP_API_URL}clients/${user.ID}/`)
-                .then((res) => {
-                    setClients(res.data);
-                })
-                .catch((err) => console.log(err));
-        }
-    }
 
     function toastMsg(success) {
         if (success) {
@@ -56,7 +47,7 @@ function ClientsPage() {
     }
 
     useEffect(() => {
-        getClients()
+        getClients(user.ID, setClients);
     }, [])
 
     return (

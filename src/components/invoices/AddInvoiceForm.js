@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { handleFormChange } from '../../helpers/forms';
+import getClients from '../../helpers/getClients';
 
 function AddInvoiceForm() {
 
@@ -24,6 +25,7 @@ function AddInvoiceForm() {
     const [errMsgs, setErrMsgs] = useState(invoiceFormFieldsInit)
     const [showForm, setShowForm] = useState(false);
     const [dueDate, setDueDate] = useState(Date | null);
+    const [clients, setClients] = useState();
 
     const handleInvoiceSubmit = (e) => {
         e.preventDefault();
@@ -56,6 +58,10 @@ function AddInvoiceForm() {
         console.log(e)
         console.log(invoiceForm)
     }
+
+    useEffect(() => {
+        getClients(user.ID, setClients);
+    }, [])
 
     return (
         <div className="client-form">
