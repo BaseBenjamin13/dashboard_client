@@ -38,8 +38,6 @@ function AddInvoiceForm() {
                 amount: invoiceForm.amount,
                 paid: invoiceForm.paid,
                 due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
-                // amount: invoiceForm.amount,
-                // paid: invoiceForm.paid,
             })
                 .then((res) => {
                     // toastMsg(true);
@@ -52,12 +50,6 @@ function AddInvoiceForm() {
         } else {
             console.log('need to login or select client');
         }
-    }
-
-    const handleFormChangeTemp = (e) => {
-        // handleFormChange(invoiceForm, setInvoiceForm, e)
-        console.log(e)
-        console.log(invoiceForm)
     }
 
     const handleClientSearchChange = (e) => {
