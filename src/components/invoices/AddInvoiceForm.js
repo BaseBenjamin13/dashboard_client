@@ -67,21 +67,22 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
                 <form onSubmit={handleInvoiceSubmit} className="form">
                     <h1>Add Client</h1>
 
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-
-                        options={clients?.map((client) => client.name)}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => {
-                            return <TextField
-                                {...params}
-                                label="Search for Client"
-                                color="secondary"
-                            />
-                        }}
-                        onChange={(e) => handleClientSearchChange(e)}
-                    />
+                    <div className='center-form-field'>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={clients?.map((client) => client.name)}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => {
+                                return <TextField
+                                    {...params}
+                                    label="Search for Client"
+                                    color="secondary"
+                                />
+                            }}
+                            onChange={(e) => handleClientSearchChange(e)}
+                        />
+                    </div>
 
 
                     <TextField
@@ -117,16 +118,27 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
                         onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DatePicker']}>
-                            <DatePicker
-                                label="Pick a due date"
-                                onChange={(newDate) => {
-                                    setDueDate(newDate)
-                                }}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
+                    <div className='center-form-field'>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker
+                                    label="MM/DD/YYYY"
+                                    color="secondary"
+                                    slotProps={{
+                                        textField: {
+                                            helperText: <h2 style={{ margin: 0, color: '#4cceac' }}>
+                                                Pick a due date
+                                            </h2>,
+                                            color: 'secondary',
+                                        },
+                                    }}
+                                    onChange={(newDate) => {
+                                        setDueDate(newDate)
+                                    }}
+                                />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
 
                     <br></br>
 
