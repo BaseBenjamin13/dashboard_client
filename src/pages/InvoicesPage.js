@@ -50,9 +50,9 @@ function InvoicesPage() {
 
             {showInvoiceForm &&
                 <AddInvoiceForm
-                    showClientForm={showInvoiceForm}
-                    setShowClientForm={setShowInvoiceForm}
-                    getClients={getInvoices}
+                    showInvoiceForm={showInvoiceForm}
+                    setShowInvoiceForm={setShowInvoiceForm}
+                    getInvoices={getInvoices}
                     // toastMsg={toastMsg}
                 />
             }

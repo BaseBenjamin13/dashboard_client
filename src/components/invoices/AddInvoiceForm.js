@@ -12,7 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { handleFormChange } from '../../helpers/forms';
 import getClients from '../../helpers/getClients';
 
-function AddInvoiceForm() {
+function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
 
     const { user, setUser } = useContext(UserContext);
 
@@ -23,7 +23,6 @@ function AddInvoiceForm() {
 
     const [invoiceForm, setInvoiceForm] = useState(invoiceFormFieldsInit)
     const [errMsgs, setErrMsgs] = useState(invoiceFormFieldsInit)
-    const [showForm, setShowForm] = useState(false);
     const [dueDate, setDueDate] = useState(Date | null);
     const [clients, setClients] = useState();
     const [selectedClient, setSelectedClient] = useState();
@@ -41,8 +40,8 @@ function AddInvoiceForm() {
             })
                 .then((res) => {
                     // toastMsg(true);
-                    setShowForm(!showForm)
-                    // getClients()
+                    setShowInvoiceForm(!showInvoiceForm)
+                    getInvoices()
                 })
                 .catch(err => {
                     // toastMsg(false);
@@ -132,7 +131,7 @@ function AddInvoiceForm() {
 
                     <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
                         variant="contained" color="red"
-                        onClick={() => setShowForm(!showForm)}
+                        onClick={() => setShowInvoiceForm(!showInvoiceForm)}
                     >
                         Cancel
                     </Button>
