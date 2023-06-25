@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { UserContext } from '../contexts/UserContext';
 
@@ -37,7 +38,7 @@ function InvoicesPage() {
 
     return (
         <div>
-
+            <Toaster />
             <Button size="large" style={{ fontSize: '20px', marginLeft: '15px', marginTop: 30}}
                 variant="contained" color="secondary"
                 onClick={() => setShowInvoiceForm(!showInvoiceForm)}

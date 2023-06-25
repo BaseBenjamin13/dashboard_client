@@ -3,7 +3,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+
 
 import { UserContext } from '../contexts/UserContext';
 import ClientsTable from '../components/clients/ClientsTable';
@@ -21,30 +22,6 @@ function ClientsPage() {
     const [showClientForm, setShowClientForm] = useState(
         location.state?.addClient ? true : false
     );
-
-    function toastMsg(success) {
-        if (success) {
-            toast.success('Client Created Successfully!',
-                {
-                    duration: 2700,
-                    style: {
-                        fontSize: 24,
-                        color: '#4cceac',
-                        backgroundColor: '#434957'
-                    }
-                }
-            );
-        } else {
-            toast.error('Something Went Wrong!',
-                {
-                    duration: 2700,
-                    style: {
-                        fontSize: 24,
-                    }
-                }
-            );
-        }
-    }
 
     useEffect(() => {
         getClients(user.ID, setClients);
@@ -70,7 +47,6 @@ function ClientsPage() {
                     showClientForm={showClientForm}
                     setShowClientForm={setShowClientForm}
                     getClients={getClients}
-                    toastMsg={toastMsg}
                 />
             }
 

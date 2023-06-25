@@ -6,6 +6,7 @@ import { UserContext } from '../../contexts/UserContext';
 import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 
 import { handleFormChange } from '../../helpers/forms';
+import ToastMsg from '../../helpers/ToastMsg';
 
 function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg }) {
 
@@ -65,12 +66,12 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                     phone: clientForm.phone,
                 })
                     .then((res) => {
-                        toastMsg(true);
+                        ToastMsg(true, 'Client successfully created!');
                         setShowClientForm(!showClientForm)
                         getClients()
                     })
                     .catch(err => {
-                        toastMsg(false);
+                        ToastMsg(false, 'Something went wrong.');
                     })
             } else {
                 // reedirect to login page

@@ -11,6 +11,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { handleFormChange } from '../../helpers/forms';
 import getClients from '../../helpers/getClients';
+import ToastMsg from '../../helpers/ToastMsg';
 
 function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
 
@@ -39,12 +40,12 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
                 due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
             })
                 .then((res) => {
-                    // toastMsg(true);
+                    ToastMsg(true, 'Invoice successfully created!');
                     setShowInvoiceForm(!showInvoiceForm)
                     getInvoices()
                 })
                 .catch(err => {
-                    // toastMsg(false);
+                    ToastMsg(false, 'Something went wrong.');
                 })
         } else {
             console.log('need to login or select client');
