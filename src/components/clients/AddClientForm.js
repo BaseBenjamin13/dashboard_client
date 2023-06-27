@@ -32,9 +32,10 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
     const [clientForm, setClientForm] = useState(clientFormFieldsInit)
     const [errMsgs, setErrMsgs] = useState(clientFormFieldsInit)
 
-    const checkFormForEmptyFields = async (errMsgs) => {
-        let errMsgsCopy = errMsgs;
-        let anyErrors = false;
+    let anyErrors = false;
+
+    function checkFormForEmptyFields(errMsgs) {
+        let errMsgsCopy = clientFormFieldsInit;
         Object.keys(clientForm).map((input, i) => {
             if (clientForm[input] === '') {
                 anyErrors = true;
@@ -42,15 +43,16 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                 errMsgsCopy[input] = `${fieldName} Cannot be left blank!`;
             }
         })
-        await setErrMsgs(errMsgsCopy)
+        setErrMsgs(errMsgsCopy)
         return anyErrors;
     }
 
     const handleCreateClient = async (e) => {
         e.preventDefault()
-        let errors = await checkFormForEmptyFields(clientFormFieldsInit)
-        if (!errors) {
-            if (user.ID) {
+        let errors = await checkFormForEmptyFields()
+        if (!errors && clientForm !== errMsgs) {
+            if (user.ID && !anyErrors) {
+                console.log(clientForm)
                 axios.post(`${process.env.REACT_APP_API_URL}clients/create/${Number(user.ID)}/`, {
                     address: {
                         street: clientForm.street,
@@ -73,10 +75,12 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                         ToastMsg(false, 'Something went wrong.');
                     })
             } else {
+                // setErrMsgs(clientFormFieldsInit)
                 ToastMsg(false, 'Must login.');
                 // reedirect to login page
             }
         } else {
+            // setErrMsgs(clientFormFieldsInit)
             ToastMsg(false, 'Something went wrong.');
         }
     }
