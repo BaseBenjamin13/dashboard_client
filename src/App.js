@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import Page404 from './pages/404';
 import ClientsPage from './pages/ClientsPage';
 import InvoicesPage from './pages/InvoicesPage';
+import AboutUsPage from './pages/AboutUsPage';
 import NavBar from './components/NavBar';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/clients" element={<ClientsPage />} />
 
                                 <Route path="/invoices" element={<InvoicesPage />} />
+                                <Route path="/about" element={<AboutUsPage />} />
 
                                 <Route path="*" element={<Page404 />} />
                             </Routes>

@@ -18,11 +18,13 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 import { tokens, ColorModeContext } from "../theme";
 import NavBarItem from "./NavBarItem";
+import { UserContext } from '../contexts/UserContext';
 
 
 const NavBar = () => {
 
-    const [user, setUser] = useState(null);
+    const { user, setUser } = useContext(UserContext);
+    console.log(user)
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -80,7 +82,7 @@ const NavBar = () => {
                                     alt="profile-user"
                                     width="100px"
                                     height="100px"
-                                    src={`../../assets/user.png`}
+                                    src={`profile.png`}
                                     style={{ cursor: "pointer", borderRadius: "50%" }}
                                 />
                             </Box>
@@ -91,10 +93,10 @@ const NavBar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    Ed Roh
+                                    {user.companyName ? user. companyName : "N/A"}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                                    VP Fancy Admin
+                                    {user.firstName} {user.lastName}
                                 </Typography>
                             </Box>
                         </Box>
@@ -112,8 +114,11 @@ const NavBar = () => {
                         </MenuItem>
 
                         <NavBarItem
-                            title={user ? "Profile" : "Login"}
-                            to={user ? "/profile" : "/login"}
+                            title={"Login"}
+                            // title={user ? "Profile" : "Login"}
+                            to={"/login"}
+                            // change this after making profile page
+                            // to={user ? "/profile" : "/login"}
                             icon={<PersonOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
@@ -128,7 +133,7 @@ const NavBar = () => {
                         />
 
                         <NavBarItem
-                            title="Clients Information"
+                            title="Clients"
                             to="/clients"
                             icon={<ContactsOutlinedIcon />}
                             selected={selected}

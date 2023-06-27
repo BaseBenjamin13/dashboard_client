@@ -17,7 +17,7 @@ function NavBarItem({ title, to, icon, selected, setSelected }) {
             onClick={() => setSelected(title)}
             icon={icon}
         >
-            <Typography>{title}</Typography>
+            <Typography fontSize={24}>{title}</Typography>
             <Link to={to} />
         </MenuItem>
   )
