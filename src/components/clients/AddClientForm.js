@@ -49,8 +49,7 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
     const handleCreateClient = async (e) => {
         e.preventDefault()
         let errors = await checkFormForEmptyFields(clientFormFieldsInit)
-        if (errors) {
-        } else {
+        if (!errors) {
             if (user.ID) {
                 axios.post(`${process.env.REACT_APP_API_URL}clients/create/${Number(user.ID)}/`, {
                     address: {
@@ -74,8 +73,11 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                         ToastMsg(false, 'Something went wrong.');
                     })
             } else {
+                ToastMsg(false, 'Must login.');
                 // reedirect to login page
             }
+        } else {
+            ToastMsg(false, 'Something went wrong.');
         }
     }
 

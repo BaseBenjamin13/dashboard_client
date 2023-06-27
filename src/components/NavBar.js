@@ -143,22 +143,22 @@ const NavBar = () => {
                             setSelected={setSelected}
                         />
                         
-                        <NavBarItem
+                        {/* <NavBarItem
                             title="Calendar"
                             to="/calendar"
                             icon={<CalendarTodayOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        /> */}
                         <NavBarItem
-                            title="FAQ Page"
-                            to="/faq"
+                            title="About Us"
+                            to="/about"
                             icon={<HelpOutlineOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
 
-                        <Typography
+                        {/* <Typography
                             variant="h6"
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
@@ -192,7 +192,7 @@ const NavBar = () => {
                             icon={<MapOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        /> */}
                     </Box>
                 </Menu>
             </ProSidebar>
