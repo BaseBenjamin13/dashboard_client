@@ -24,7 +24,7 @@ function ClientsPage() {
     );
 
     useEffect(() => {
-        getClients(user.ID, setClients);
+        getClients(user.ID, setClients, user.token);
     }, [])
 
     return (
@@ -47,6 +47,7 @@ function ClientsPage() {
                     showClientForm={showClientForm}
                     setShowClientForm={setShowClientForm}
                     getClients={getClients}
+                    token={user.token}
                 />
             }
 

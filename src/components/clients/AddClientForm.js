@@ -8,7 +8,7 @@ import { Button, TextField, Select, MenuItem, InputLabel, FormControl } from "@m
 import { handleFormChange } from '../../helpers/forms';
 import ToastMsg from '../../helpers/ToastMsg';
 
-function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg }) {
+function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg, token }) {
 
     const { user, setUser } = useContext(UserContext);
 
@@ -65,8 +65,12 @@ function AddClientForm({ showClientForm, setShowClientForm, getClients, toastMsg
                     name: clientForm.name,
                     email: clientForm.email,
                     phone: clientForm.phone,
-                })
-                    .then((res) => {
+                },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then((res) => {
                         ToastMsg(true, 'Client successfully created!');
                         setShowClientForm(!showClientForm)
                         getClients()
