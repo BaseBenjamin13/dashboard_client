@@ -92,7 +92,7 @@ const NavBar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    {user.companyName ? user. companyName : "N/A"}
+                                    {user.companyName ? user.companyName : "N/A"}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
                                     {user.firstName} {user.lastName}

@@ -6,15 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
-function TotalClients({ userID }) {
+function TotalClients({ userID, userToken }) {
 
     const navigate = useNavigate();
     const [totalClients, setTotalClients] = useState();
 
     function getTotalClients() {
         if (userID) {
-            axios.get(`${process.env.REACT_APP_API_URL}clients/${userID}/count`)
-                .then((res) => {
+            axios.get(`${process.env.REACT_APP_API_URL}clients/${userID}/count`, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }).then((res) => {
                     setTotalClients(res.data.count);
                 })
                 .catch((err) => console.log(err));

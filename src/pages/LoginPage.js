@@ -78,10 +78,8 @@ function Login() {
             password: loginForm.password,
         })
             .then((res) => {
-                console.log(res);
                 localStorage.setItem('token', res.data.access);
-                // ADD this once backend is updated
-                // localStorage.setItem('companyName', res.data.username);
+                localStorage.setItem('companyName', res.data.username);
                 localStorage.setItem('email', res.data.email);
                 localStorage.setItem('firstName', res.data.first_name);
                 localStorage.setItem('lastName', res.data.last_name);
@@ -103,6 +101,8 @@ function Login() {
 
     return (
         <div>
+            {/* companyName: demo
+            Pass:DemoDB123 */}
             <Tabs>
                 <TabList>
                     <Tab><h1>Register</h1></Tab>

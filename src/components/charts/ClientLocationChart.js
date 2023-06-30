@@ -4,20 +4,23 @@ import '../../styles/HomePage.css'
 
 import { Pie } from '@nivo/pie';
 
-function ClientLocationChart({ userID }) {
+function ClientLocationChart({ userID, userToken }) {
 
     const [clientLocations, setClientLocations] = useState();
 
     function getClientLocations() {
         if (userID) {
             let tempClientLocations = [];
-            axios.get(`${process.env.REACT_APP_API_URL}clients/${userID}/state/count`)
-                .then((res) => {
-                    res.data.state_counts.map((state) => {
-                        tempClientLocations.push({ id: state.state, value: state.count })
-                    })
-                    setClientLocations(tempClientLocations)
+            axios.get(`${process.env.REACT_APP_API_URL}clients/${userID}/state/count`, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }).then((res) => {
+                res.data.state_counts.map((state) => {
+                    tempClientLocations.push({ id: state.state, value: state.count })
                 })
+                setClientLocations(tempClientLocations)
+            })
                 .catch((err) => console.log(err));
         }
     }
@@ -90,7 +93,7 @@ function ClientLocationChart({ userID }) {
                             }}
                             width={700}
                         />
-                    : <h1>Loading...</h1>
+                        : <h1>Loading...</h1>
                 }
             </div>
         </div>

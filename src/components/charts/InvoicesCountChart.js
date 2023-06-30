@@ -5,17 +5,20 @@ import '../../styles/HomePage.css'
 import { Chart } from 'react-basic-charts';
 import 'react-basic-charts/index.css';
 
-function InvoicesCountChart({ userID }) {
+function InvoicesCountChart({ userID, userToken }) {
 
     const [invoiceUnpaidCount, setInvoiceUnpaidCount] = useState();
     const [invoicePaidCount, setInvoicePaidCount] = useState();
 
     function getInvoiceCounts() {
         if (userID) {
-            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/unpaid/count`)
-                .then((res) => {
-                    setInvoiceUnpaidCount(res.data.count)
-                })
+            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/unpaid/count`, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }).then((res) => {
+                setInvoiceUnpaidCount(res.data.count)
+            })
                 .catch((err) => console.log(err));
             axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/count`)
                 .then((res) => {
@@ -47,7 +50,7 @@ function InvoicesCountChart({ userID }) {
                                     invoicePaidCount
                                 ]
                             }}
-                            displayValue={(value) =>  value}
+                            displayValue={(value) => value}
                         />
                         : <h1>Loading...</h1>
                 }

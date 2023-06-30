@@ -17,14 +17,14 @@ function HomePage() {
             <h1>Home Page</h1>
             <div className="home-chart-container">
                 <div className="chart-group">
-                    <ClientLocationChart userID={user.ID} />
+                    <ClientLocationChart userID={user.ID} userToken={user.token} />
 
-                    <InvoicesCountChart userID={user.ID} />
+                    <InvoicesCountChart userID={user.ID} userToken={user.token} />
                 </div>
                 <div className="chart-group">
-                    <SumOfInvoiceValues userID={user.ID} />
+                    <SumOfInvoiceValues userID={user.ID} userToken={user.token} />
 
-                    <TotalClients userID={user.ID} />
+                    <TotalClients userID={user.ID} userToken={user.token} />
                 </div>
             </div>
 

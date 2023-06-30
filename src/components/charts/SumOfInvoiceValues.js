@@ -6,17 +6,20 @@ import CanvasJSReact from '@canvasjs/react-charts';
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-function SumOfInvoiceValues({ userID }) {
+function SumOfInvoiceValues({ userID, userToken }) {
 
     const goal = 1500;
     const [sumOfInvoiceValues, setSumOfInvoiceValues] = useState(0);
 
     function getSumOfInvoiceValues() {
         if (userID) {
-            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/sum`)
-                .then((res) => {
-                    setSumOfInvoiceValues(res.data[0])
-                })
+            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/sum`, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }).then((res) => {
+                setSumOfInvoiceValues(res.data[0])
+            })
                 .catch((err) => console.log(err));
         }
     }
