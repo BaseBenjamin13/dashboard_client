@@ -5,7 +5,7 @@ import '../styles/Login.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import { TextField, useTheme, Button, IconButton, InputAdornment } from "@mui/material";
+import { TextField, useTheme, Button, IconButton, InputAdornment, Typography } from "@mui/material";
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { tokens } from "../theme";
@@ -13,6 +13,7 @@ import { UserContext } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 import { handleFormChange } from '../helpers/forms';
+import { margin } from '@mui/system';
 
 function Login() {
 
@@ -39,7 +40,7 @@ function Login() {
         }
     );
 
-    
+
 
     const handleShowPassword = (showPassword, setShowPassword, e) => {
         e.preventDefault();
@@ -105,9 +106,84 @@ function Login() {
             Pass:DemoDB123 */}
             <Tabs>
                 <TabList>
-                    <Tab><h1>Register</h1></Tab>
                     <Tab><h1>Login</h1></Tab>
+                    <Tab><h1>Register</h1></Tab>
                 </TabList>
+
+                <TabPanel>
+                    <div className="form-container">
+                        <h1>Login</h1>
+                        <form onSubmit={handleLogin} className="form">
+                            <div>
+                                <Typography variant="h1" color={colors.redAccent[500]}>
+                                    Important
+                                </Typography>
+                                <br></br>
+                                <Typography variant="h3" color={colors.grey[100]}>
+                                    To demo Analytical login with the following login.
+                                </Typography>
+
+                                <Typography variant="h3" color={colors.grey[100]}>
+                                    Company Name: <span style={{ color: colors.greenAccent[500], fontSize: 30 }}>demo</span>
+                                </Typography>
+                                <Typography variant="h3" color={colors.grey[100]}>
+                                    Password: <span style={{ color: colors.greenAccent[500], fontSize: 30 }}>DemoDB123</span>
+                                </Typography>
+                            </div>
+
+                            <TextField
+                                InputProps={{ style: { fontSize: 20 } }}
+                                InputLabelProps={{ style: { fontSize: 20 } }}
+                                fullWidth
+                                margin="normal"
+                                id="companyName"
+                                label="Company Name"
+                                variant="outlined"
+                                color="secondary"
+                                error={errorMsg.username ? true : false}
+                                helperText={errorMsg.username ?
+                                    <span className="error-msg">{errorMsg.username}</span>
+                                    : null
+                                }
+                                onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
+                            />
+                            <TextField
+                                InputProps={{ style: { fontSize: 20 } }}
+                                InputLabelProps={{ style: { fontSize: 20 } }}
+                                fullWidth
+                                margin="normal"
+                                id="password"
+                                label="Password"
+                                variant="outlined"
+                                color="secondary"
+                                error={errorMsg.password ? true : false}
+                                helperText={errorMsg.password ?
+                                    <span className="error-msg">{errorMsg.password}</span>
+                                    : null
+                                }
+                                onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
+                                type={showLoginPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    style: { fontSize: 20 },
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={
+                                                    (e) => handleShowPassword(showLoginPassword, setShowLoginPassword, e)
+                                                }
+                                            >
+                                                {showLoginPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+
+                            <Button size="large" style={{ fontSize: '20px' }} variant="contained" type="submit" color="secondary">Login</Button>
+                        </form>
+                    </div>
+                </TabPanel>
 
                 <TabPanel>
                     <div className="form-container">
@@ -184,7 +260,7 @@ function Login() {
                                             <IconButton
                                                 aria-label="toggle password visibility"
                                                 onClick={
-                                                    (e) => handleShowPassword(showRegisterPassword, setShowRegisterPassword , e)
+                                                    (e) => handleShowPassword(showRegisterPassword, setShowRegisterPassword, e)
                                                 }
                                             >
                                                 {showRegisterPassword ? <VisibilityOff /> : <Visibility />}
@@ -195,63 +271,6 @@ function Login() {
                             />
 
                             <Button size="large" style={{ fontSize: '20px' }} variant="contained" type="submit" color="secondary">Register</Button>
-                        </form>
-                    </div>
-                </TabPanel>
-                <TabPanel>
-                    <div className="form-container">
-                        <h1>Login</h1>
-                        <form onSubmit={handleLogin} className="form">
-                            <TextField
-                                InputProps={{ style: { fontSize: 20 } }}
-                                InputLabelProps={{ style: { fontSize: 20 } }}
-                                fullWidth
-                                margin="normal"
-                                id="companyName"
-                                label="Company Name"
-                                variant="outlined"
-                                color="secondary"
-                                error={errorMsg.username ? true : false}
-                                helperText={errorMsg.username ?
-                                    <span className="error-msg">{errorMsg.username}</span>
-                                    : null
-                                }
-                                onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
-                            />
-                            <TextField
-                                InputProps={{ style: { fontSize: 20 } }}
-                                InputLabelProps={{ style: { fontSize: 20 } }}
-                                fullWidth
-                                margin="normal"
-                                id="password"
-                                label="Password"
-                                variant="outlined"
-                                color="secondary"
-                                error={errorMsg.password ? true : false}
-                                helperText={errorMsg.password ?
-                                    <span className="error-msg">{errorMsg.password}</span>
-                                    : null
-                                }
-                                onChange={(e) => handleFormChange(loginForm, setLoginForm, e)}
-                                type={showLoginPassword ? 'text' : 'password'}
-                                InputProps={{
-                                    style: { fontSize: 20 },
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={
-                                                    (e) => handleShowPassword(showLoginPassword, setShowLoginPassword , e)
-                                                }
-                                            >
-                                                {showLoginPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-
-                            <Button size="large" style={{ fontSize: '20px' }} variant="contained" type="submit" color="secondary">Login</Button>
                         </form>
                     </div>
                 </TabPanel>
