@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../contexts/UserContext';
 import '../styles/HomePage.css'
@@ -10,7 +11,14 @@ import TotalClients from '../components/charts/TotalClients';
 
 function HomePage() {
 
+    // move all get data functions for charts into this component to reload on refresh and useeffect
+
+    const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
+
+    useEffect(() => {
+        if(!user.token) navigate('/login');
+    }, [])
 
     return (
         <div>
