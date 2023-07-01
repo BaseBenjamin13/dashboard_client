@@ -29,9 +29,9 @@ function App() {
 
                         <main className="content">
                             <Routes>
-                                <Route path="/" element={<HomePage />} />
-
-                                <Route path="/login" element={<LoginPage />} />
+                                <Route path="/" element={<LoginPage />} />
+                                
+                                <Route path="/dashboard" element={<HomePage />} />
 
                                 <Route path="/clients" element={<ClientsPage />} />
 

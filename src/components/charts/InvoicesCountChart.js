@@ -1,40 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import '../../styles/HomePage.css'
 
 import { Chart } from 'react-basic-charts';
 import 'react-basic-charts/index.css';
 
-function InvoicesCountChart({ userID, userToken }) {
-
-    const [invoiceUnpaidCount, setInvoiceUnpaidCount] = useState();
-    const [invoicePaidCount, setInvoicePaidCount] = useState();
-
-    function getInvoiceCounts() {
-        if (userID) {
-            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/unpaid/count`, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            }).then((res) => {
-                setInvoiceUnpaidCount(res.data.count)
-            })
-                .catch((err) => console.log(err));
-            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/count`, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            }).then((res) => {
-                setInvoicePaidCount(res.data.count)
-            })
-                .catch((err) => console.log(err));
-        }
-    }
-
-
-    useEffect(() => {
-        getInvoiceCounts();
-    }, [])
+function InvoicesCountChart({ invoiceUnpaidCount, invoicePaidCount }) {
 
     return (
         <div className='chart-container'>

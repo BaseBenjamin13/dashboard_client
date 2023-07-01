@@ -1,33 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import '../../styles/HomePage.css'
 
 import { Pie } from '@nivo/pie';
 
-function ClientLocationChart({ userID, userToken }) {
-
-    const [clientLocations, setClientLocations] = useState();
-
-    function getClientLocations() {
-        if (userID) {
-            let tempClientLocations = [];
-            axios.get(`${process.env.REACT_APP_API_URL}clients/${userID}/state/count`, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            }).then((res) => {
-                res.data.state_counts.map((state) => {
-                    tempClientLocations.push({ id: state.state, value: state.count })
-                })
-                setClientLocations(tempClientLocations)
-            })
-                .catch((err) => console.log(err));
-        }
-    }
-
-    useEffect(() => {
-        getClientLocations();
-    }, [])
+function ClientLocationChart({ clientLocations }) {
 
     return (
         <div className='chart-container'>

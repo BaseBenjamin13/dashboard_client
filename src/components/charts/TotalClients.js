@@ -1,33 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import '../../styles/HomePage.css'
 
 import { useNavigate } from "react-router-dom";
 import { Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
-function TotalClients({ userID, userToken }) {
+function TotalClients({ totalClients }) {
 
     const navigate = useNavigate();
-    const [totalClients, setTotalClients] = useState();
-
-    function getTotalClients() {
-        if (userID) {
-            axios.get(`${process.env.REACT_APP_API_URL}clients/${userID}/count`, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            }).then((res) => {
-                    setTotalClients(res.data.count);
-                })
-                .catch((err) => console.log(err));
-        }
-    }
-
-
-    useEffect(() => {
-        getTotalClients();
-    }, [])
 
     return (
         <div className='chart-container'>

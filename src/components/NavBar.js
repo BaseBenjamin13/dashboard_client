@@ -115,7 +115,7 @@ const NavBar = () => {
                         <NavBarItem
                             title={"Login"}
                             // title={user ? "Profile" : "Login"}
-                            to={"/login"}
+                            to={"/"}
                             // change this after making profile page
                             // to={user ? "/profile" : "/login"}
                             icon={<PersonOutlinedIcon />}
@@ -125,7 +125,7 @@ const NavBar = () => {
 
                         <NavBarItem
                             title="Dashboard"
-                            to="/"
+                            to="/dashboard"
                             icon={<HomeOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}

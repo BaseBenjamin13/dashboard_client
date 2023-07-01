@@ -1,40 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import '../../styles/HomePage.css'
 
 import CanvasJSReact from '@canvasjs/react-charts';
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-function SumOfInvoiceValues({ userID, userToken }) {
+function SumOfInvoiceValues({ sumOfInvoiceValues }) {
 
     const goal = 1500;
-    const [sumOfInvoiceValues, setSumOfInvoiceValues] = useState(0);
-
-    function getSumOfInvoiceValues() {
-        if (userID) {
-            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/sum`, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`
-                }
-            }).then((res) => {
-                setSumOfInvoiceValues(res.data[0])
-            })
-                .catch((err) => console.log(err));
-        }
-    }
-
-
-    useEffect(() => {
-        getSumOfInvoiceValues();
-    }, [])
 
     const options = {
         animationEnabled: true,
         backgroundColor: 'rgba(0,0,0,0)',
-        // title: {
-        //     text: "Customer Satisfaction"
-        // },
         subtitles: [{
             text: `Total: $${sumOfInvoiceValues}`,
             verticalAlign: "center",
@@ -43,7 +20,6 @@ function SumOfInvoiceValues({ userID, userToken }) {
         }],
         data: [{
             type: "doughnut",
-            // showInLegend: true,
             indexLabel: "{name}: {y}",
             yValueFormatString: "'$'#,###",
             dataPoints: [
