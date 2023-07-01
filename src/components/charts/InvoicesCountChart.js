@@ -20,10 +20,13 @@ function InvoicesCountChart({ userID, userToken }) {
                 setInvoiceUnpaidCount(res.data.count)
             })
                 .catch((err) => console.log(err));
-            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/count`)
-                .then((res) => {
-                    setInvoicePaidCount(res.data.count)
-                })
+            axios.get(`${process.env.REACT_APP_API_URL}invoices/${userID}/paid/count`, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
+            }).then((res) => {
+                setInvoicePaidCount(res.data.count)
+            })
                 .catch((err) => console.log(err));
         }
     }

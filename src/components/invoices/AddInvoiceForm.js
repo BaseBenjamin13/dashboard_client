@@ -13,7 +13,7 @@ import { handleFormChange } from '../../helpers/forms';
 import getClients from '../../helpers/getClients';
 import ToastMsg from '../../helpers/ToastMsg';
 
-function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
+function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices, userToken }) {
 
     const { user, setUser } = useContext(UserContext);
 
@@ -38,6 +38,10 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
                 amount: invoiceForm.amount,
                 paid: invoiceForm.paid,
                 due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${userToken}`
+                }
             })
                 .then((res) => {
                     ToastMsg(true, 'Invoice successfully created!');
@@ -57,7 +61,7 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices }) {
     }
 
     useEffect(() => {
-        getClients(user.ID, setClients);
+        getClients(user.ID, setClients, userToken);
     }, [])
 
     return (
