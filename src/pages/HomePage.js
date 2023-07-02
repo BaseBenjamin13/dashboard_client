@@ -88,11 +88,16 @@ function HomePage() {
     }
 
     useEffect(() => {
-        getClientLocations()
-        getInvoiceCounts()
-        getSumOfInvoiceValues()
-        getTotalClients()
-    }, [])
+        console.log(typeof user.token)
+        if(user.token && user.token !== 'undefined'){
+            getClientLocations()
+            getInvoiceCounts()
+            getSumOfInvoiceValues()
+            getTotalClients()
+        }else {
+            navigate('/')
+        }
+        }, [])
 
     return (
         <div>

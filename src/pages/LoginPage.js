@@ -13,7 +13,9 @@ import { UserContext } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 import { handleFormChange } from '../helpers/forms';
-import { margin } from '@mui/system';
+import { Toaster } from 'react-hot-toast';
+import toastMsg from '../helpers/ToastMsg';
+
 
 function Login() {
 
@@ -77,26 +79,26 @@ function Login() {
         axios.post(process.env.REACT_APP_API_URL + 'login/', {
             username: loginForm.companyName,
             password: loginForm.password,
-        })
-            .then((res) => {
+        }).then((res) => {
+            if(res.data.access) {
                 localStorage.setItem('token', res.data.access);
                 localStorage.setItem('companyName', res.data.username);
                 localStorage.setItem('email', res.data.email);
                 localStorage.setItem('firstName', res.data.first_name);
                 localStorage.setItem('lastName', res.data.last_name);
                 localStorage.setItem('ID', res.data.user_id);
-            })
-            .then(() => {
-                navigate('/');
-            })
-            .catch(err => {
-                console.log(err);
-                if (err.response.data.username || err.response.data.password) {
-                    setErrorMsg({
-                        username: err.response.data.username ? err.response.data.username[0] : null,
-                        password: err.response.data.password ? err.response.data.password[0] : null
-                    });
+                console.log('data ' + res.data)
+                if(res.data.access) {
+                    toastMsg(false, 'Sorry')
+                    navigate('/dashboard');
                 }
+            }else {
+                toastMsg(false, res.data + ' Please try again.')
+            }
+            }).catch(err => {
+                toastMsg(false, err.response.data.error + ' Please try again.')
+                console.log(err);
+                console.log('error')
             })
     }
 
@@ -104,6 +106,7 @@ function Login() {
         <div>
             {/* companyName: demo
             Pass:DemoDB123 */}
+            <Toaster />
             <Tabs>
                 <TabList>
                     <Tab><h1>Login</h1></Tab>
