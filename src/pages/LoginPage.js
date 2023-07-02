@@ -87,6 +87,14 @@ function Login() {
                 localStorage.setItem('firstName', res.data.first_name);
                 localStorage.setItem('lastName', res.data.last_name);
                 localStorage.setItem('ID', res.data.user_id);
+                setUser({
+                    token: res.data.access,
+                    companyName: res.data.username,
+                    email: res.data.email,
+                    firstName: res.data.first_name,
+                    lastName: res.data.last_name,
+                    ID: res.data.user_id,
+                })
                 console.log('data ' + res.data)
                 if(res.data.access) {
                     toastMsg(false, 'Sorry')

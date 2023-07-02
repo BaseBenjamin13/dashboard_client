@@ -89,13 +89,14 @@ function HomePage() {
 
     useEffect(() => {
         console.log(typeof user.token)
+        // navigate(0);
         if(user.token && user.token !== 'undefined'){
             getClientLocations()
             getInvoiceCounts()
             getSumOfInvoiceValues()
             getTotalClients()
         }else {
-            navigate('/')
+            navigate('/');
         }
         }, [])
 
@@ -104,9 +105,9 @@ function HomePage() {
             <h1>Home Page</h1>
             <div className="home-chart-container">
                 <div className="chart-group">
-                    {clientLocations ?
+                    {clientLocations &&
                         <ClientLocationChart clientLocations={clientLocations} />
-                        : <h1>Loading...</h1>
+                        
                     }
                     {clientLocations ?
                         <InvoicesCountChart invoiceUnpaidCount={invoiceUnpaidCount} invoicePaidCount={invoicePaidCount}/>
