@@ -28,7 +28,10 @@ Input your invoices and clients with our easy to use forms and observe the creat
 
 ## Technologies Used
 * React
+* MUI
 * Javascript
+* HTML
+* CSS
 
 
 ## What's Next?
