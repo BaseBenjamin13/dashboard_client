@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
-import { Button, TextField, Stack, Autocomplete } from "@mui/material";
+import { Button, TextField, Autocomplete, Checkbox, FormGroup, FormControlLabel, Typography } from "@mui/material";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -59,6 +59,11 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices, user
     const handleClientSearchChange = (e) => {
         setSelectedClient(clients[e.target.attributes[3].value])
     }
+    const handlePaidFieldChange = (e) => {
+        let copy = invoiceForm;
+        copy.paid = e.target.checked;
+        setInvoiceForm(copy)
+    }
 
     useEffect(() => {
         getClients(user.ID, setClients, userToken);
@@ -98,6 +103,7 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices, user
                         label="Amount"
                         variant="outlined"
                         color="secondary"
+                        type="number"
                         // error={errMsgs.name ? true : false}
                         // helperText={errMsgs.name ?
                         //     <span className="error-msg">{errMsgs.name}</span>
@@ -105,22 +111,26 @@ function AddInvoiceForm({ showInvoiceForm, setShowInvoiceForm, getInvoices, user
                         // }
                         onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
-                    <TextField
-                        InputProps={{ style: { fontSize: 20 } }}
-                        InputLabelProps={{ style: { fontSize: 20 } }}
-                        fullWidth
-                        margin="normal"
-                        id="paid"
-                        label="Paid"
-                        variant="outlined"
-                        color="secondary"
-                        error={errMsgs.email ? true : false}
-                        // helperText={errMsgs.email ?
-                        //     <span className="error-msg">{errMsgs.email}</span>
-                        //     : null
-                        // }
-                        onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
-                    />
+
+                    <div className='center-form-field'>
+                        <FormGroup sx={{ fontSize: 50, margin: 3 }} >
+                            <FormControlLabel
+                                label={
+                                    <Typography color="secondary" style={{fontSize: 30}}>
+                                        Paid
+                                    </Typography>
+                                }
+                                control={
+                                    
+                                    <Checkbox
+                                        color="secondary"
+                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 50 } }}
+                                        onChange={(e) => handlePaidFieldChange(e)}
+                                    />
+                                }
+                            />
+                        </FormGroup>
+                    </div>
 
                     <div className='center-form-field'>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

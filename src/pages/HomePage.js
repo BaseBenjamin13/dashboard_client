@@ -89,7 +89,6 @@ function HomePage() {
 
     useEffect(() => {
         console.log(typeof user.token)
-        // navigate(0);
         if(user.token && user.token !== 'undefined'){
             getClientLocations()
             getInvoiceCounts()
