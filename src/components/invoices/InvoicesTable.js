@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Button } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 
 function InvoicesTable({ invoices }) {
@@ -10,8 +11,25 @@ function InvoicesTable({ invoices }) {
         { field: 'clientName', headerName: 'Client Name', width: 250 },
         { field: 'dueDate', headerName: 'Due Date', width: 250 },
         { field: 'paid', headerName: 'Paid', width: 250 },
+        {
+            field: 'edit', headerName: 'Edit Invoices', width: 150,
+            renderCell: ({ row }) =>
+                <Button size="small" type="submit" style={{ fontSize: '20px' }}
+                    variant="contained" color="secondary"
+                    onClick={() => console.log(invoices[row.id])}
+                >
+                    Edit
+                </Button>
+
+        },
     ];
     const rows = [];
+
+    const displayEditBtn = () => {
+        return (
+            <button>Edit</button>
+        )
+    }
 
     invoices.map((invoice, index) => {
         rows.push({
