@@ -1,46 +1,48 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
 import { Button, TextField, Autocomplete, Checkbox, FormGroup, FormControlLabel, Typography } from "@mui/material";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { handleFormChange } from '../../helpers/forms';
-import getClients from '../../helpers/getClients';
 import ToastMsg from '../../helpers/ToastMsg';
 
-function AddInvoiceForm({ showEditInvoiceForm, setShowEditInvoiceForm, getInvoices, userToken }) {
+function AddInvoiceForm({ 
+    showEditInvoiceForm, 
+    setShowEditInvoiceForm, 
+    selectedInvoice,
+    getInvoices,
+}) {
 
     const { user, setUser } = useContext(UserContext);
 
     const invoiceFormFieldsInit = {
-        amount: '',
-        paid: false,
+        amount: selectedInvoice.amount,
+        paid: selectedInvoice.paid,
     }
 
     const [invoiceForm, setInvoiceForm] = useState(invoiceFormFieldsInit)
     const [errMsgs, setErrMsgs] = useState(invoiceFormFieldsInit)
-    const [dueDate, setDueDate] = useState(Date | null);
-    const [clients, setClients] = useState();
-    const [selectedClient, setSelectedClient] = useState();
+    // const [dueDate, setDueDate] = useState(Date | null);
 
     const handleInvoiceSubmit = (e) => {
         e.preventDefault();
 
-        if (user.ID && selectedClient) {
-            axios.post(`${process.env.REACT_APP_API_URL}invoices/create/${Number(user.ID)}/${selectedClient.id}/`, {
-                supplier: { email: user.email },
-                client: { name: selectedClient.name },
+        if (user.ID && selectedInvoice) {
+            axios.put(`${process.env.REACT_APP_API_URL}invoices/detail/${Number(user.ID)}/${selectedInvoice.id}/`, {
+                supplier: { id: user.ID, email: user.email },
+                client: { client: selectedInvoice.client.id, name: selectedInvoice.client.name },
                 amount: invoiceForm.amount,
                 paid: invoiceForm.paid,
-                due_date: `${dueDate.$y}-${dueDate.$M + 1}-${dueDate.$D}`,
+                // due_date: selectedInvoice.due_date,
             }, {
                 headers: {
-                    'Authorization': `Bearer ${userToken}`
+                    'Authorization': `Bearer ${user.token}`
                 }
             })
                 .then((res) => {
@@ -56,42 +58,18 @@ function AddInvoiceForm({ showEditInvoiceForm, setShowEditInvoiceForm, getInvoic
         }
     }
 
-    const handleClientSearchChange = (e) => {
-        setSelectedClient(clients[e.target.attributes[3].value])
-    }
     const handlePaidFieldChange = (e) => {
         let copy = invoiceForm;
         copy.paid = e.target.checked;
         setInvoiceForm(copy)
     }
 
-    useEffect(() => {
-        getClients(user.ID, setClients, userToken);
-    }, [])
-
     return (
         <div className="client-form">
             <div className="form-container">
 
                 <form onSubmit={handleInvoiceSubmit} className="form">
-                    <h1>Add Client</h1>
-
-                    <div className='center-form-field'>
-                        <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={clients?.map((client) => client.name)}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => {
-                                return <TextField
-                                    {...params}
-                                    label="Search for Client"
-                                    color="secondary"
-                                />
-                            }}
-                            onChange={(e) => handleClientSearchChange(e)}
-                        />
-                    </div>
+                    <h1>Edit Client</h1>
 
 
                     <TextField
@@ -104,11 +82,7 @@ function AddInvoiceForm({ showEditInvoiceForm, setShowEditInvoiceForm, getInvoic
                         variant="outlined"
                         color="secondary"
                         type="number"
-                        // error={errMsgs.name ? true : false}
-                        // helperText={errMsgs.name ?
-                        //     <span className="error-msg">{errMsgs.name}</span>
-                        //     : null
-                        // }
+                        value={invoiceForm.amount}
                         onChange={(e) => handleFormChange(invoiceForm, setInvoiceForm, e)}
                     />
 
@@ -123,6 +97,7 @@ function AddInvoiceForm({ showEditInvoiceForm, setShowEditInvoiceForm, getInvoic
                                 control={
                                     
                                     <Checkbox
+                                        defaultChecked={selectedInvoice.paid ? true : false}
                                         color="secondary"
                                         sx={{ '& .MuiSvgIcon-root': { fontSize: 50 } }}
                                         onChange={(e) => handlePaidFieldChange(e)}
@@ -131,7 +106,7 @@ function AddInvoiceForm({ showEditInvoiceForm, setShowEditInvoiceForm, getInvoic
                             />
                         </FormGroup>
                     </div>
-
+{/* 
                     <div className='center-form-field'>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
@@ -152,7 +127,7 @@ function AddInvoiceForm({ showEditInvoiceForm, setShowEditInvoiceForm, getInvoic
                                 />
                             </DemoContainer>
                         </LocalizationProvider>
-                    </div>
+                    </div> */}
 
                     <br></br>
 

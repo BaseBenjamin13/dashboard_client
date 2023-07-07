@@ -53,7 +53,6 @@ function InvoicesTable({ invoices, userToken, getInvoices }) {
                     showEditInvoiceForm={showEditInvoiceForm}
                     selectedInvoice={selectedInvoice}
                     getInvoices={getInvoices}
-                    userToken={userToken}
                 />
             }
 
@@ -64,7 +63,7 @@ function InvoicesTable({ invoices, userToken, getInvoices }) {
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection
+                    // checkboxSelection
                 />
                 : <h2>Loading ...</h2>
             }
