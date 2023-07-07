@@ -1,9 +1,14 @@
-import * as React from 'react'
+import React, { useState } from 'react';
 
 import { Button } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 
-function InvoicesTable({ invoices }) {
+import EditInvoiceForm from './EditInvoiceForm';
+
+function InvoicesTable({ invoices, userToken, getInvoices }) {
+
+    const [showEditInvoiceForm, setShowEditInvoiceForm] = useState(false);
+    const [selectedInvoice, setSelectedInvoice] = useState();
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 120 },
@@ -16,7 +21,11 @@ function InvoicesTable({ invoices }) {
             renderCell: ({ row }) =>
                 <Button size="small" type="submit" style={{ fontSize: '20px' }}
                     variant="contained" color="secondary"
-                    onClick={() => console.log(invoices[row.id])}
+                    onClick={() => {
+                        setShowEditInvoiceForm(true);
+                        setSelectedInvoice(invoices[row.id])
+                    }
+                    }
                 >
                     Edit
                 </Button>
@@ -24,12 +33,6 @@ function InvoicesTable({ invoices }) {
         },
     ];
     const rows = [];
-
-    const displayEditBtn = () => {
-        return (
-            <button>Edit</button>
-        )
-    }
 
     invoices.map((invoice, index) => {
         rows.push({
@@ -43,6 +46,17 @@ function InvoicesTable({ invoices }) {
 
     return (
         <div style={{ height: 400, width: '80%', margin: '0 auto' }}>
+
+            {showEditInvoiceForm &&
+                <EditInvoiceForm 
+                    setShowEditInvoiceForm={setShowEditInvoiceForm}
+                    showEditInvoiceForm={showEditInvoiceForm}
+                    selectedInvoice={selectedInvoice}
+                    getInvoices={getInvoices}
+                    userToken={userToken}
+                />
+            }
+
             {rows.length ?
                 <DataGrid
                     style={{ fontSize: '20px', margin: '0 auto' }}

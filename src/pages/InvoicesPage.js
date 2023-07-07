@@ -65,7 +65,7 @@ function InvoicesPage() {
             <TableSearch label="Search Invoices" />
 
             {invoices ?
-                <InvoicesTable invoices={invoices} />
+                <InvoicesTable invoices={invoices} userToken={user.token} getInvoices={getInvoices}/>
                 : <h1>You haven't added any invoices yet.</h1>
             }
         </div>
