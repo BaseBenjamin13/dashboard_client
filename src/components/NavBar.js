@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -26,9 +26,30 @@ const NavBar = () => {
     const { user, setUser } = useContext(UserContext);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
     const colorMode = useContext(ColorModeContext);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    
+    
+    const [isMobile, setIsMobile] = useState(false);
+    
+	useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 500px)');
+        
+		setIsMobile(mediaQuery.matches);
+        
+		const handleMediaQueryChange = (event) => {
+            setIsMobile(event.matches);
+            setIsCollapsed(event.matches);
+		}
+		mediaQuery.addEventListener('change', handleMediaQueryChange);
+        
+		return () => {
+            mediaQuery.removeEventListener('change', handleMediaQueryChange);
+		}
+	}, [])
+    
+
 
     return (
         <Box
