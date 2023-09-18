@@ -29,48 +29,48 @@ const NavBar = () => {
     const [selected, setSelected] = useState("Dashboard");
     const colorMode = useContext(ColorModeContext);
     const [isCollapsed, setIsCollapsed] = useState(false);
-    
-    
+
+
     const [isMobile, setIsMobile] = useState(false);
-    
-	useEffect(() => {
+
+    useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 500px)');
-        
-		setIsMobile(mediaQuery.matches);
-        
-		const handleMediaQueryChange = (event) => {
+
+        setIsMobile(mediaQuery.matches);
+
+        const handleMediaQueryChange = (event) => {
             setIsMobile(event.matches);
             setIsCollapsed(event.matches);
-		}
-		mediaQuery.addEventListener('change', handleMediaQueryChange);
-        
-		return () => {
+        }
+        mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+        return () => {
             mediaQuery.removeEventListener('change', handleMediaQueryChange);
-		}
-	}, [])
-    
+        }
+    }, [])
 
 
     return (
-        <Box
-            sx={{
-                "& .pro-sidebar-inner": {
-                    background: `${colors.primary[400]} !important`,
-                },
-                "& .pro-icon-wrapper": {
-                    backgroundColor: "transparent !important",
-                },
-                "& .pro-inner-item": {
-                    padding: "5px 35px 5px 20px !important",
-                },
-                "& .pro-inner-item:hover": {
-                    color: "#868dfb !important",
-                },
-                "& .pro-menu-item.active": {
-                    color: "#6870fa !important",
-                },
-            }}
-        >
+        <Box sx={{
+            "& .pro-sidebar-inner": {
+                background: `${colors.primary[400]} !important`,
+                width: isCollapsed && isMobile ? 50 : !isCollapsed && isMobile ? 165 : null
+            },
+            "& .pro-icon-wrapper": {
+                backgroundColor: "transparent !important",
+            },
+            "& .pro-inner-item": {
+                padding: isCollapsed && isMobile ? "5px 0px 5px 8px !important" 
+                : !isCollapsed && isMobile ? "5px 0px 5px 0px !important" 
+                : "5px 35px 5px 20px !important",
+            },
+            "& .pro-inner-item:hover": {
+                color: "#868dfb !important",
+            },
+            "& .pro-menu-item.active": {
+                color: "#6870fa !important",
+            },
+        }}>
             <ProSidebar collapsed={isCollapsed}>
                 <Menu iconShape="square">
                     <MenuItem
@@ -122,14 +122,20 @@ const NavBar = () => {
                         </Box>
                     )}
 
-                    <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                    <Box 
+                        paddingLeft={
+                            isCollapsed ? undefined 
+                            : !isCollapsed && isMobile ? "1%" 
+                            : "10%"
+                        }
+                    >
                         <MenuItem>
                             <IconButton onClick={colorMode.toggleColorMode}>
                                 {theme.palette.mode === "dark" ? (
                                     <DarkModeOutlinedIcon />
-                                    ) : (
-                                        <LightModeOutlinedIcon />
-                                        )}
+                                ) : (
+                                    <LightModeOutlinedIcon />
+                                )}
                             </IconButton>
                         </MenuItem>
 
@@ -167,7 +173,7 @@ const NavBar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        
+
                         {/* <NavBarItem
                             title="Calendar"
                             to="/calendar"
