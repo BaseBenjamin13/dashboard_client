@@ -1,4 +1,6 @@
 
+
+
 .form {
     margin: 0 auto;
     width: 30vw;
@@ -31,4 +33,14 @@
 .form-group-small {
     display: flex;
     justify-content: space-evenly;
+}
+
+@media (max-width: 550px) {
+    .form-container {
+        width: max-content;
+    }
+    .form {
+        width: 75vw;
+        padding: 10px;
+    }
 }
