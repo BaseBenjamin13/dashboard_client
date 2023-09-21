@@ -22,9 +22,24 @@ function ClientsPage() {
     const [showClientForm, setShowClientForm] = useState(
         location.state?.addClient ? true : false
     );
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         getClients(user.ID, setClients, user.token);
+     
+        const mediaQuery = window.matchMedia('(max-width: 500px)');
+
+        setIsMobile(mediaQuery.matches);
+
+        const handleMediaQueryChange = (event) => {
+            setIsMobile(event.matches);
+        }
+        mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleMediaQueryChange);
+        }
+
     }, [])
 
     return (
@@ -51,7 +66,7 @@ function ClientsPage() {
                 />
             }
 
-            <TableSearch label="Search Clients" />
+            <TableSearch label="Search Clients" isMobile={isMobile}/>
 
             {clients ?
                 <ClientsTable clients={clients} />
@@ -63,4 +78,4 @@ function ClientsPage() {
     )
 }
 
-export default ClientsPage
+export default ClientsPage;

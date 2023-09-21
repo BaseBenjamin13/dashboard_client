@@ -3,7 +3,7 @@ import React from 'react';
 import { TextField, Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-function ClientsSearch({ label }) {
+function ClientsSearch({ label, isMobile }) {
     return (
         <div>
             <form className='search-form'>
@@ -31,7 +31,18 @@ function ClientsSearch({ label }) {
                     // onChange={(e) => handleFormChange(searchForm, setSearchForm, e)}
                 />
 
-                <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }} variant="contained" type="submit" color="secondary">Search</Button>
+                <Button 
+                    size={isMobile ? "medium" : "large"} 
+                    style={{ 
+                        fontSize: isMobile ? '17px' :'20px', 
+                        marginLeft: isMobile ? '5px' : '15px', 
+                    }} 
+                    variant="contained" 
+                    type="submit" 
+                    color="secondary"
+                >
+                    Search
+                </Button>
 
             </form>
         </div>
