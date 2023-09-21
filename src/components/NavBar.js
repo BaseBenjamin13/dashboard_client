@@ -19,6 +19,7 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { tokens, ColorModeContext } from "../theme";
 import NavBarItem from "./NavBarItem";
 import { UserContext } from '../contexts/UserContext';
+import { getIsMobile } from '../helpers/getIsMobile';
 
 
 const NavBar = () => {
@@ -34,19 +35,7 @@ const NavBar = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 500px)');
-
-        setIsMobile(mediaQuery.matches);
-
-        const handleMediaQueryChange = (event) => {
-            setIsMobile(event.matches);
-            setIsCollapsed(event.matches);
-        }
-        mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-        return () => {
-            mediaQuery.removeEventListener('change', handleMediaQueryChange);
-        }
+        getIsMobile(setIsMobile, setIsCollapsed);
     }, [])
 
 

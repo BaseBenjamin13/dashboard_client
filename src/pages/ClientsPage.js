@@ -11,6 +11,7 @@ import ClientsTable from '../components/clients/ClientsTable';
 import TableSearch from '../components/TableSearch';
 import AddClientForm from '../components/clients/AddClientForm';
 import getClients from '../helpers/getClients';
+import { getIsMobile } from '../helpers/getIsMobile';
 
 import { useLocation } from 'react-router-dom';
 
@@ -26,20 +27,8 @@ function ClientsPage() {
 
     useEffect(() => {
         getClients(user.ID, setClients, user.token);
-     
-        const mediaQuery = window.matchMedia('(max-width: 500px)');
-
-        setIsMobile(mediaQuery.matches);
-
-        const handleMediaQueryChange = (event) => {
-            setIsMobile(event.matches);
-        }
-        mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-        return () => {
-            mediaQuery.removeEventListener('change', handleMediaQueryChange);
-        }
-
+    
+        getIsMobile(setIsMobile)
     }, [])
 
     return (
