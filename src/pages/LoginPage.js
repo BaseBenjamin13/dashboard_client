@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Login.css';
 
@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { handleFormChange } from '../helpers/forms';
 import { Toaster } from 'react-hot-toast';
 import toastMsg from '../helpers/ToastMsg';
-
+import { getIsMobile } from '../helpers/getIsMobile';
 
 function Login() {
 
@@ -41,7 +41,11 @@ function Login() {
             password: '',
         }
     );
+    const [isMobile, setIsMobile] = useState(false);
 
+    useEffect(() => {
+        getIsMobile(setIsMobile)
+    }, [])
 
 
     const handleShowPassword = (showPassword, setShowPassword, e) => {
@@ -116,14 +120,13 @@ function Login() {
             Pass:DemoDB123 */}
             <Toaster />
             <Tabs>
-                <TabList>
+                <TabList className="tab-switch-container">
                     <Tab><h1>Login</h1></Tab>
                     <Tab><h1>Register</h1></Tab>
                 </TabList>
 
                 <TabPanel>
                     <div className="form-container">
-                        <h1>Login</h1>
                         <form onSubmit={handleLogin} className="form">
                             <div>
                                 <Typography variant="h1" color={colors.redAccent[500]}>
@@ -198,7 +201,6 @@ function Login() {
 
                 <TabPanel>
                     <div className="form-container">
-                        <h1>Register</h1>
                         <form onSubmit={handleRegister} className="form">
                             <TextField
                                 InputProps={{ style: { fontSize: 20 } }}
