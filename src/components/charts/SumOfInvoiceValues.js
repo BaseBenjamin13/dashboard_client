@@ -31,7 +31,7 @@ function SumOfInvoiceValues({ sumOfInvoiceValues }) {
 
     return (
         <div className='chart-container'>
-            <h2>Total Value of Paid Invoices</h2>
+            <h2 className="chart-header">Total Value of Paid Invoices</h2>
             <div className='chart'>
                 {
                     sumOfInvoiceValues ?

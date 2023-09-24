@@ -8,7 +8,7 @@ function InvoicesCountChart({ invoiceUnpaidCount, invoicePaidCount }) {
 
     return (
         <div className='chart-container'>
-            <h2>Invoices Paid & Unpaid</h2>
+            <h2 className="chart-header">Invoices Paid & Unpaid</h2>
             <div className='chart'>
                 {
                     invoicePaidCount && invoiceUnpaidCount ?

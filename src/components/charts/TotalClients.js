@@ -11,7 +11,7 @@ function TotalClients({ totalClients }) {
 
     return (
         <div className='chart-container'>
-            <h2>Total Amount of Clients</h2>
+            <h2 className="chart-header">Total Amount of Clients</h2>
             <div className='chart' id='total-clients-container'>
                 {
                     totalClients ?

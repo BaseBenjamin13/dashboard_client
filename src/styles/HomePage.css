@@ -58,10 +58,20 @@
     }
 
     .chart-container {
+        padding: 10%;
         width: 100%;
+        border: 5px solid red;
         min-height: 45vh;
         text-align: center;
         border-radius: 220px;
         margin-bottom: 30px;
+        /* align-items: center; */
+    }
+    .chart {
+        margin-bottom: 0px;
+    }
+    .chart-header {
+        margin-top: 30px;
+        margin-bottom: 0px;
     }
 }
