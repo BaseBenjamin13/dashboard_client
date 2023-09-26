@@ -1,0 +1,15 @@
+
+
+.clients-header {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+
+@media (max-width: 550px) {
+    .clients-page, .invoices-page {
+        width: 90vw;
+        margin-top: 40px;
+    }
+
+}

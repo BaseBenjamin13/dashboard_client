@@ -32,10 +32,10 @@ function ClientsSearch({ label, isMobile }) {
                 />
 
                 <Button 
-                    size={isMobile ? "medium" : "large"} 
+                    size="large" 
                     style={{ 
-                        fontSize: isMobile ? '17px' :'20px', 
-                        marginLeft: isMobile ? '5px' : '15px', 
+                        fontSize: '20px', 
+                        marginLeft: '10px',
                     }} 
                     variant="contained" 
                     type="submit" 

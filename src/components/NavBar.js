@@ -41,9 +41,15 @@ const NavBar = () => {
 
     return (
         <Box sx={{
+            "& .pro-sidebar": {
+                // minWidth: 50,
+                width: isCollapsed && isMobile ? 50 : !isCollapsed && isMobile ? 165 : null,
+                minWidth: isCollapsed && isMobile ? 50 : !isCollapsed && isMobile ? 165 : null,
+            },
             "& .pro-sidebar-inner": {
                 background: `${colors.primary[400]} !important`,
-                width: isCollapsed && isMobile ? 50 : !isCollapsed && isMobile ? 165 : null
+                width: isCollapsed && isMobile ? 50 : !isCollapsed && isMobile ? 165 : null,
+                // margin: isMobile ? 0 : null,
             },
             "& .pro-icon-wrapper": {
                 backgroundColor: "transparent !important",

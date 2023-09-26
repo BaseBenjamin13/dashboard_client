@@ -13,6 +13,7 @@ import AddClientForm from '../components/clients/AddClientForm';
 import getClients from '../helpers/getClients';
 import { getIsMobile } from '../helpers/getIsMobile';
 
+import '../styles/ClientsPage.css';
 import { useLocation } from 'react-router-dom';
 
 function ClientsPage() {
@@ -32,9 +33,8 @@ function ClientsPage() {
     }, [])
 
     return (
-        <div>
+        <div className="clients-page">
             <Toaster />
-            <h1>Clients</h1>
 
             <Button size="large" style={{ fontSize: '20px', marginLeft: '15px' }}
                 variant="contained" color="secondary"

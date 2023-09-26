@@ -8,6 +8,7 @@ import { UserContext } from '../contexts/UserContext';
 import { Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
+import '../styles/ClientsPage.css';
 import InvoicesTable from '../components/invoices/InvoicesTable';
 import TableSearch from '../components/TableSearch';
 import AddInvoiceForm from '../components/invoices/AddInvoiceForm';
@@ -40,9 +41,9 @@ function InvoicesPage() {
     }, [])
 
     return (
-        <div>
+        <div className="clients-page">
             <Toaster />
-            <Button size="large" style={{ fontSize: '20px', marginLeft: '15px', marginTop: 30 }}
+            <Button size="large" style={{ fontSize: '20px' }}
                 variant="contained" color="secondary"
                 onClick={() => setShowInvoiceForm(!showInvoiceForm)}
             >
