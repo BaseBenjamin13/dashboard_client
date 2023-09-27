@@ -115,7 +115,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className="login-form">
             {/* companyName: demo
             Pass:DemoDB123 */}
             <Toaster />

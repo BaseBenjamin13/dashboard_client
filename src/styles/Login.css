@@ -15,11 +15,11 @@
     font-size: 20px;
 }
 
-.client-form {
+.login-form {
     background-color: #141b2d;
     position: absolute;
     z-index: 1;
-    top: 42%;
+    top: 38%;
     left: 57%;
     transform: translate(-50%, -50%);
     animation: show 1.2s;
@@ -37,7 +37,7 @@
 
 @media (max-width: 550px) {
     .tab-switch-container {
-        width: 50vw;
+        width: 80vw;
         font-size: 10px;
         /* margin: 0; */
         padding: 0%;
@@ -47,9 +47,10 @@
     }
     .form-container {
         width: max-content;
+
     }
     .form {
-        width: 50vw;
+        width: 80vw;
         padding: 10px;
     }
 }

@@ -5,6 +5,16 @@
     margin: 0 auto;
 }
 
+.client-form {
+    background-color: #141b2d;
+    position: absolute;
+    z-index: 1;
+    top: 42%;
+    left: 57%;
+    transform: translate(-50%, -50%);
+    animation: show 1.2s;
+}
+
 
 @media (max-width: 550px) {
     .clients-page, .invoices-page {

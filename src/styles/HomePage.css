@@ -55,6 +55,7 @@
     .chart-group {
         flex-direction: column;
         margin: 0;
+        margin-left: 20px;
     }
 
     .chart-container {
